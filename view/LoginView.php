@@ -20,7 +20,25 @@ class LoginView {
 	 * @return  void BUT writes to standard output and cookies!
 	 */
 	public function response() {
+		// checks username and password 
 		$message = '';
+		if(isset($_POST[self::$name]) || isset($_POST[self::$password])) 
+		{
+			if($_POST[self::$name] =='')
+			{
+				$message = 'Username is missing';
+			}
+			else if($_POST[self::$password] =='')
+			{
+				$message = 'Password is missing';
+			}
+		}
+		else 
+		{
+			$message = '';
+		}
+		
+
 		
 		$response = $this->generateLoginFormHTML($message);
 		//$response .= $this->generateLogoutButtonHTML($message);
@@ -32,7 +50,8 @@ class LoginView {
 	* @param $message, String output message
 	* @return  void, BUT writes to standard output!
 	*/
-	private function generateLogoutButtonHTML($message) {
+	private function generateLogoutButtonHTML($message) 
+	{
 		return '
 			<form  method="post" >
 				<p id="' . self::$messageId . '">' . $message .'</p>
@@ -48,9 +67,11 @@ class LoginView {
 	*/
 	private function generateLoginFormHTML($message) {
 		return '
-			<form method="post" > 
+			<form method="post" name="form" > 
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
+					
+					
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
@@ -63,14 +84,20 @@ class LoginView {
 					<input type="checkbox" id="' . self::$keep . '" name="' . self::$keep . '" />
 					
 					<input type="submit" name="' . self::$login . '" value="login" />
+
+
 				</fieldset>
 			</form>
 		';
 	}
 	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
-	private function getRequestUserName() {
+	private function getRequestUserName() 
+	{
 		//RETURN REQUEST VARIABLE: USERNAME
+		
+		// echo $_POST["' . self::$name . '"];
+		// return  (. self::$name .);
 	}
 	
 }

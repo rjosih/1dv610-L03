@@ -11,11 +11,8 @@ class DateTimeView {
 		$year = date('Y');
 		$time = date('G:i:s');
 		
-		$timeString = $weekendDay .', '. 'the ' . $dateNumber .'th '.  $monthNumber .' '. $year . ', The time is ' . $time;
+		$timeString = $weekendDay .', '. 'the ' . $dateNumber .'th  of '.  $monthNumber .' '. $year . ', The time is ' . $time;
 
 		return '<p>' . $timeString . '</p>';
 	}
 }
-
-
-// 'Friday, the 8th of September 2017, The time is '
