@@ -20,11 +20,13 @@ class LoginView {
 	 * @return  void BUT writes to standard output and cookies!
 	 */
 	public function response() {
-		// checks username and password 
+		
+		// checks username and password input
+		
 		$message = '';
 		if(isset($_POST[self::$name]) || isset($_POST[self::$password])) 
 		{
-			if($_POST[self::$name] =='')
+			if($_POST[self::$name] == '')
 			{
 				$message = 'Username is missing';
 			}
@@ -38,10 +40,17 @@ class LoginView {
 			$message = '';
 		}
 		
+		// if the username is Admin and the password is Password you get logged in
 
+		if(isset($_POST[self::$name]) =='Admin' && isset($_POST[self::$password]) == 'Password')
+		{
+			//logga in
+			$message = 'You are logged in!';
+			$response = $this->generateLogoutButtonHTML($message);
+			
+		}
 		
 		$response = $this->generateLoginFormHTML($message);
-		//$response .= $this->generateLogoutButtonHTML($message);
 		return $response;
 	}
 
