@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 class LoginView {
 	private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
@@ -33,27 +35,27 @@ class LoginView {
 			{
 				$message = 'Username is missing';
 			}
-			else if($_POST[self::$password] =='')
+			else if($_POST[self::$password] == '')
 			{
 				$message = 'Password is missing';
-			}
-			// if the username is Admin and the password is Password you get logged in	
-			else 
-			{
-				$message = '';
-			}
-		
-			if ($_POST[self::$password] == 'Password' && $_POST[self::$name] =='Admin')
-			{
-				//loggas in
-				$message = 'Welcome';
-				$response = $this->generateLogoutButtonHTML($message);	
-				return $response;
 			}
 			// om man inte har rätt inlogg
 			else 
 			{
 				$message = 'Wrong name or password';
+			}
+			// if the username is Admin and the password is Password you get logged in
+			
+			if ($_POST[self::$password] == 'Password' && $_POST[self::$name] =='Admin')
+			{
+				//loggas in
+				$message = 'Welcome';
+				//sessions
+				$_SESSION['Username'] = $_POST[self::$password];
+				$_SESSION['Password'] = $_POST[self::$name];
+				//visar log ut knappen
+				$response = $this->generateLogoutButtonHTML($message);	
+				return $response;
 			}
 			
 		}
@@ -74,6 +76,11 @@ class LoginView {
 				<input type="submit" name="' . self::$logout . '" value="logout"/>
 			</form>
 		';
+
+		//session_destroy(); // Destroy All Sessions
+		//Or
+		// if(isset($_SESSION['id']))
+		// unset($_SESSION['id']);  //Is Used To Destroy Specified Session
 	}
 	
 	/**
@@ -111,9 +118,7 @@ class LoginView {
 	private function getRequestUserName() 
 	{
 		//RETURN REQUEST VARIABLE: USERNAME
-		
-		// echo $_POST["' . self::$name . '"];
-		// return  (. self::$name .);
+	
 	}
 	
 }
