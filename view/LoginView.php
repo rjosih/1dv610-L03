@@ -42,23 +42,21 @@ class LoginView {
 			{
 				$message = '';
 			}
-		}
-
-
-		if (isset($_POST[self::$password]) == 'Password' && isset($_POST[self::$name]) =='Admin')
+		
+			if ($_POST[self::$password] == 'Password' && $_POST[self::$name] =='Admin')
 			{
 				//loggas in
-				$message = '<h2>Logged in</h2>';
+				$message = 'Welcome';
 				$response = $this->generateLogoutButtonHTML($message);	
+				return $response;
 			}
 			// om man inte har rätt inlogg
 			else 
 			{
-				
-				$response = 'Wrong name or password';
+				$message = 'Wrong name or password';
 			}
 			
-		
+		}
 		$response = $this->generateLoginFormHTML($message);
 		return $response;
 	}
