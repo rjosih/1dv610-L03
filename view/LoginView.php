@@ -76,11 +76,7 @@ class LoginView {
 				<input type="submit" name="' . self::$logout . '" value="logout"/>
 			</form>
 		';
-
-		//session_destroy(); // Destroy All Sessions
-		//Or
-		// if(isset($_SESSION['id']))
-		// unset($_SESSION['id']);  //Is Used To Destroy Specified Session
+		
 	}
 	
 	/**
@@ -89,6 +85,8 @@ class LoginView {
 	* @return  void, BUT writes to standard output!
 	*/
 	private function generateLoginFormHTML($message) {
+		if(isset($_SESSION['Username']))
+		unset($_SESSION['Username']);  
 		return '
 			<form method="post" name="form" > 
 				<fieldset>
