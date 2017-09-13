@@ -11,6 +11,7 @@ class LoginView {
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
+	public static $usernameInInput = '';
 
 	
 
@@ -38,11 +39,18 @@ class LoginView {
 			else if($_POST[self::$password] == '')
 			{
 				$message = 'Password is missing';
+				
 			}
 			// om man inte har rätt inlogg
+			// else if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/', $_POST[self::$password]))
+			// {
+			// 	$message = 'Wrong name or password';
+			// }
 			else 
 			{
 				$message = 'Wrong name or password';
+				$this->getRequestUserName();
+				
 			}
 			// if the username is Admin and the password is Password you get logged in
 			
@@ -70,6 +78,7 @@ class LoginView {
 	*/
 	private function generateLogoutButtonHTML($message) 
 	{
+	
 		return '
 			<form  method="post" >
 				<p id="' . self::$messageId . '">' . $message .'</p>
@@ -85,6 +94,7 @@ class LoginView {
 	* @return  void, BUT writes to standard output!
 	*/
 	private function generateLoginFormHTML($message) {
+		
 		if(isset($_SESSION['Username']))
 		unset($_SESSION['Username']);  
 		return '
@@ -96,7 +106,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="'  . self::$usernameInInput .  '" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -116,7 +126,9 @@ class LoginView {
 	private function getRequestUserName() 
 	{
 		//RETURN REQUEST VARIABLE: USERNAME
-	
+		$nameInput = $_POST[self::$name];
+		return self::$usernameInInput = $nameInput;
+
 	}
 	
 }

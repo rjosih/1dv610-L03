@@ -14,6 +14,23 @@ $v = new LoginView();
 $dtv = new DateTimeView();
 $lv = new LayoutView();
 
+if(isset($_POST['LoginView::Logout']))
+{
+    unset($_SESSION['Username']);  
+}
+    else if(isset($_POST['LoginView::Login']))
+{
+    $_SESSION['Username'] = $_POST['LoginView::Login'];
+    
+}
 
-$lv->render(false, $v, $dtv);
+//om man är inloggad eller inte 
 
+if(isset($_SESSION['Username']))
+{
+    $lv->render(true, $v, $dtv);
+}
+else
+{
+    $lv->render(false, $v, $dtv);
+}
