@@ -24,12 +24,16 @@ class LoginView {
 	 */
 	public function response() 
 	{
-		
-		// checks username and password input
-		
 		$message = '';
 		$response = '';
 		
+		if(isset($_POST['LoginView::Logout'])) 
+		{
+			$message = "Bye bye!";
+			return $this->generateLoginFormHTML($message);
+		}
+		
+		// kollar om inputfälten är ifyllda
 		if(isset($_POST[self::$name]) || isset($_POST[self::$password])) 
 		{
 			if($_POST[self::$name] == '')
@@ -41,31 +45,17 @@ class LoginView {
 				$message = 'Password is missing';
 				
 			}
-			// om man inte har rätt inlogg
-			// else if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/', $_POST[self::$password]))
-			// {
-			// 	$message = 'Wrong name or password';
-			// }
-			else 
+			// om man inte har rätt inlogg med båda inputfälten ifyllda
+			else if (isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
+			{
+				$message = 'Welcome';
+				return $this->generateLogoutButtonHTML($message);
+			}
+			else
 			{
 				$message = 'Wrong name or password';
 				$this->getRequestUserName();
-				
 			}
-			// if the username is Admin and the password is Password you get logged in
-			
-			if ($_POST[self::$password] == 'Password' && $_POST[self::$name] =='Admin')
-			{
-				//loggas in
-				$message = 'Welcome';
-				//sessions
-				$_SESSION['Username'] = $_POST[self::$password];
-				$_SESSION['Password'] = $_POST[self::$name];
-				//visar log ut knappen
-				$response = $this->generateLogoutButtonHTML($message);	
-				return $response;
-			}
-			
 		}
 		$response = $this->generateLoginFormHTML($message);
 		return $response;

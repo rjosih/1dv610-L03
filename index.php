@@ -14,19 +14,39 @@ $v = new LoginView();
 $dtv = new DateTimeView();
 $lv = new LayoutView();
 
+
+
+// om båda inputfälten är korrekt ifyllda med Admin och Password
+
+if (isset($_POST['LoginView::Password']) && $_POST['LoginView::Password'] == "Password"  && (isset($_POST['LoginView::UserName']) && $_POST['LoginView::UserName'] == "Admin"))
+{
+    //loggas in
+    // $message = 'Welcome';
+    //sessions
+    $_SESSION['Username'] = $_POST['LoginView::UserName'];
+    $_SESSION['Password'] = $_POST['LoginView::Password'];
+    //visar log ut knappen
+    // $response = $this->generateLogoutButtonHTML($message);	
+    // return $response;
+}
+
+
 if(isset($_POST['LoginView::Logout']))
 {
     unset($_SESSION['Username']);  
 }
-    else if(isset($_POST['LoginView::Login']))
+else if(isset($_POST['LoginView::Login']))
 {
-    $_SESSION['Username'] = $_POST['LoginView::Login'];
+    // kolla om man har rätt username och password
+    // om rätt, spara i session
+    // om fel, spara inte och visa felmeddelande "wrong name etc"
+    // $_SESSION['Username'] = $_POST['LoginView::Login'];
     
 }
 
 //om man är inloggad eller inte 
 
-if(isset($_SESSION['Username']))
+if(isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
 {
     $lv->render(true, $v, $dtv);
 }
