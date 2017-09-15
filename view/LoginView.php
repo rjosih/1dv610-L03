@@ -27,14 +27,25 @@ class LoginView {
 		$message = '';
 		$response = '';
 		
+		//om man loggar ut 
 		if(isset($_POST['LoginView::Logout'])) 
 		{
 			$message = "Bye bye!";
 			return $this->generateLoginFormHTML($message);
 		}
+
 		
+		// om man inte har rätt inlogg med båda inputfälten ifyllda
+		if (isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
+		{
+			if (isset($_POST['LoginView::Login'])) 
+			{
+				$message = 'Welcome';
+			}
+			return $this->generateLogoutButtonHTML($message);
+		}
 		// kollar om inputfälten är ifyllda
-		if(isset($_POST[self::$name]) || isset($_POST[self::$password])) 
+		else if(isset($_POST[self::$name]) || isset($_POST[self::$password])) 
 		{
 			if($_POST[self::$name] == '')
 			{
@@ -45,16 +56,10 @@ class LoginView {
 				$message = 'Password is missing';
 				
 			}
-			// om man inte har rätt inlogg med båda inputfälten ifyllda
-			else if (isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
-			{
-				$message = 'Welcome';
-				return $this->generateLogoutButtonHTML($message);
-			}
 			else
+			//om 
 			{
 				$message = 'Wrong name or password';
-				$this->getRequestUserName();
 			}
 		}
 		$response = $this->generateLoginFormHTML($message);
@@ -84,9 +89,7 @@ class LoginView {
 	* @return  void, BUT writes to standard output!
 	*/
 	private function generateLoginFormHTML($message) {
-		
-		if(isset($_SESSION['Username']))
-		unset($_SESSION['Username']);  
+
 		return '
 			<form method="post" name="form" > 
 				<fieldset>
@@ -96,7 +99,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="'  . self::$usernameInInput .  '" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="'  . $this->getRequestUserName() .  '" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
@@ -115,9 +118,15 @@ class LoginView {
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() 
 	{
+
 		//RETURN REQUEST VARIABLE: USERNAME
-		$nameInput = $_POST[self::$name];
-		return self::$usernameInInput = $nameInput;
+		if(isset($_POST[self::$name]))
+		{
+
+			return $_POST[self::$name];
+		}
+
+		return "";
 
 	}
 	

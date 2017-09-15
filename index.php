@@ -20,14 +20,10 @@ $lv = new LayoutView();
 
 if (isset($_POST['LoginView::Password']) && $_POST['LoginView::Password'] == "Password"  && (isset($_POST['LoginView::UserName']) && $_POST['LoginView::UserName'] == "Admin"))
 {
-    //loggas in
-    // $message = 'Welcome';
-    //sessions
+    //sätter sessioner
     $_SESSION['Username'] = $_POST['LoginView::UserName'];
     $_SESSION['Password'] = $_POST['LoginView::Password'];
-    //visar log ut knappen
-    // $response = $this->generateLogoutButtonHTML($message);	
-    // return $response;
+
 }
 
 
@@ -42,9 +38,9 @@ else if(isset($_POST['LoginView::Login']))
     // om fel, spara inte och visa felmeddelande "wrong name etc"
     // $_SESSION['Username'] = $_POST['LoginView::Login'];
     
+    
 }
 
-//om man är inloggad eller inte 
 
 if(isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
 {
