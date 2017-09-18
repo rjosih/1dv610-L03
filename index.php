@@ -1,5 +1,12 @@
 <?php
 
+session_start();
+
+$_SESSION['message'] = '';
+if (!isset($_SESSION['Username'])) {
+    $_SESSION['Username'] = '';
+}
+
 //INCLUDE THE FILES NEEDED...
 require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
@@ -16,6 +23,22 @@ $lv = new LayoutView();
 
 
 
+if(isset($_POST['LoginView::Logout']))
+{
+    if (isset($_SESSION['Username']) && $_SESSION['Username'] == "Admin") {
+        $_SESSION['message'] = "Bye bye!";
+    }
+    $_SESSION['Username'] = '';
+}
+else if(isset($_POST['LoginView::Login']))
+{    
+    if ($_SESSION['Username'] == "") {
+        $_SESSION['message'] = "Welcome";
+    }
+}
+
+
+
 // om båda inputfälten är korrekt ifyllda med Admin och Password
 
 if (isset($_POST['LoginView::Password']) && $_POST['LoginView::Password'] == "Password"  && (isset($_POST['LoginView::UserName']) && $_POST['LoginView::UserName'] == "Admin"))
@@ -23,24 +46,7 @@ if (isset($_POST['LoginView::Password']) && $_POST['LoginView::Password'] == "Pa
     //sätter sessioner
     $_SESSION['Username'] = $_POST['LoginView::UserName'];
     $_SESSION['Password'] = $_POST['LoginView::Password'];
-
 }
-
-
-if(isset($_POST['LoginView::Logout']))
-{
-    unset($_SESSION['Username']);  
-}
-else if(isset($_POST['LoginView::Login']))
-{
-    // kolla om man har rätt username och password
-    // om rätt, spara i session
-    // om fel, spara inte och visa felmeddelande "wrong name etc"
-    // $_SESSION['Username'] = $_POST['LoginView::Login'];
-    
-    
-}
-
 
 if(isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
 {

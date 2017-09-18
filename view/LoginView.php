@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 class LoginView {
 	private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
@@ -30,7 +28,8 @@ class LoginView {
 		//om man loggar ut 
 		if(isset($_POST['LoginView::Logout'])) 
 		{
-			$message = "Bye bye!";
+			// $message = "Bye bye!";
+			$message = '';
 			return $this->generateLoginFormHTML($message);
 		}
 
@@ -40,8 +39,9 @@ class LoginView {
 		{
 			if (isset($_POST['LoginView::Login'])) 
 			{
-				$message = 'Welcome';
+				// $message = 'Welcome';
 			}
+			
 			return $this->generateLogoutButtonHTML($message);
 		}
 		// kollar om inputfälten är ifyllda
@@ -63,6 +63,7 @@ class LoginView {
 			}
 		}
 		$response = $this->generateLoginFormHTML($message);
+		$_SESSION['message'] = '';
 		return $response;
 	}
 
@@ -76,7 +77,7 @@ class LoginView {
 	
 		return '
 			<form  method="post" >
-				<p id="' . self::$messageId . '">' . $message .'</p>
+				<p id="' . self::$messageId . '">' . $message . $_SESSION['message'] . '</p>
 				<input type="submit" name="' . self::$logout . '" value="logout"/>
 			</form>
 		';
@@ -96,7 +97,7 @@ class LoginView {
 					<legend>Login - enter Username and password</legend>
 					
 					
-					<p id="' . self::$messageId . '">' . $message . '</p>
+					<p id="' . self::$messageId . '">' . $message . $_SESSION['message'] . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
 					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="'  . $this->getRequestUserName() .  '" />
