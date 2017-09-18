@@ -91,6 +91,13 @@ class LoginView {
 	*/
 	private function generateLoginFormHTML($message) {
 
+		if ($message == "Username is missing" || $message == "Password is missing" || $message = "Wrong name or password") 
+		{
+			if ($_SESSION['message'] == "Welcome") {
+				$_SESSION['message'] = "";
+			}
+		}
+
 		return '
 			<form method="post" name="form" > 
 				<fieldset>
