@@ -33,35 +33,36 @@ class LoginView {
 			return $this->generateLoginFormHTML($message);
 		}
 
-		
-		// om man inte har rätt inlogg med båda inputfälten ifyllda
-		if (isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
-		{
-			if (isset($_POST['LoginView::Login'])) 
+		// if (isset($_POST['LoginView::Login'])) {
+			// om man inte har rätt inlogg med båda inputfälten ifyllda
+			if (isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
 			{
-				// $message = 'Welcome';
-			}
-			
-			return $this->generateLogoutButtonHTML($message);
-		}
-		// kollar om inputfälten är ifyllda
-		else if(isset($_POST[self::$name]) || isset($_POST[self::$password])) 
-		{
-			if($_POST[self::$name] == '')
-			{
-				$message = 'Username is missing';
-			}
-			else if($_POST[self::$password] == '')
-			{
-				$message = 'Password is missing';
+				if (isset($_POST['LoginView::Login'])) 
+				{
+					// $message = 'Welcome';
+				}
 				
+				return $this->generateLogoutButtonHTML($message);
 			}
-			else
-			//om 
+			// kollar om inputfälten är ifyllda
+			else if(isset($_POST[self::$name]) || isset($_POST[self::$password])) 
 			{
-				$message = 'Wrong name or password';
+				if($_POST[self::$name] == '')
+				{
+					$message = 'Username is missing';
+				}
+				else if($_POST[self::$password] == '')
+				{
+					$message = 'Password is missing';
+					
+				}
+				else
+				//om 
+				{
+					$message = 'Wrong name or password';
+				}
 			}
-		}
+		// }
 		$response = $this->generateLoginFormHTML($message);
 		$_SESSION['message'] = '';
 		return $response;
@@ -74,7 +75,6 @@ class LoginView {
 	*/
 	private function generateLogoutButtonHTML($message) 
 	{
-	
 		return '
 			<form  method="post" >
 				<p id="' . self::$messageId . '">' . $message . $_SESSION['message'] . '</p>
@@ -91,7 +91,7 @@ class LoginView {
 	*/
 	private function generateLoginFormHTML($message) {
 
-		if ($message == "Username is missing" || $message == "Password is missing" || $message = "Wrong name or password") 
+		if ($message == "Username is missing" || $message == "Password is missing" || $message == "Wrong name or password") 
 		{
 			if ($_SESSION['message'] == "Welcome") {
 				$_SESSION['message'] = "";
