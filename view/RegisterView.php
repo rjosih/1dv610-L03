@@ -5,25 +5,25 @@
 
 
 
-class RegisterForm{
+class RegisterView {
 
     private static $UserName = 'RegisterView:UserName';
     private static $Password = 'RegisterView:Password';
     private static $PasswordRepeat = 'RegisterView:PasswordRepeat';
+    private static $MessageInRegister = 'RegisterView::Message';
     
 
 
-    public function renderRegisterForm($message)
+    public function response()
     {
 
-        echo '
-        <h1>Assignment 2</h1>
-        <a href="?">Back to login</a>
-        <h2>Not logged in</h2>
+        return '
         <h2>Register a new user</h2>
         <form method="post" name="form" > 
             <fieldset>
                 <legend>Register a new user - Write username and password</legend>
+                <p id="RegisterView::Message"></p>
+            
                 <br>
                 <label for=' . self::$UserName . '>Username :</label>
                 <input type="text" size="20"/>
@@ -41,7 +41,6 @@ class RegisterForm{
 
             </fieldset>
         </form>
-        <p>' . $timeString . '</p>;
         ';
 //tiden måste visas
     }
