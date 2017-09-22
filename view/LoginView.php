@@ -25,16 +25,13 @@ class LoginView {
 		$message = '';
 		$response = '';
 		
-		//om man loggar ut 
+	
 		if(isset($_POST['LoginView::Logout'])) 
 		{
-			// $message = "Bye bye!";
 			$message = '';
 			return $this->generateLoginFormHTML($message);
 		}
 
-		// if (isset($_POST['LoginView::Login'])) {
-			// om man inte har rätt inlogg med båda inputfälten ifyllda
 			if (isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
 			{
 				if (isset($_POST['LoginView::Login'])) 
@@ -44,7 +41,7 @@ class LoginView {
 				
 				return $this->generateLogoutButtonHTML($message);
 			}
-			// kollar om inputfälten är ifyllda
+			
 			else if(isset($_POST[self::$name]) || isset($_POST[self::$password])) 
 			{
 				if($_POST[self::$name] == '')
@@ -57,7 +54,7 @@ class LoginView {
 					
 				}
 				else
-				//om 
+				
 				{
 					$message = 'Wrong name or password';
 				}

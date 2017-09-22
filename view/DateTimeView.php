@@ -3,7 +3,8 @@
 class DateTimeView {
 
 
-	public function show() {
+	public function show() 
+	{
 
 		$weekendDay = date('l');
 		$dateNumber = date('j');

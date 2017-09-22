@@ -1,11 +1,13 @@
 <?php
 
 
-class LayoutView {
+class LayoutView 
+{
   
   public function render($isLoggedIn, $v, DateTimeView $dtv) 
   {
-    echo '<!DOCTYPE html>
+    echo '
+    <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
@@ -28,21 +30,31 @@ class LayoutView {
   }
 
   
-  private function renderIsLoggedIn($isLoggedIn) 
+  public function renderIsLoggedIn($isLoggedIn) 
   {
-    if ($isLoggedIn) {
+    if ($isLoggedIn) 
+    {
       return '<h2>Logged in</h2>';
     }
-    else {
+    else 
+    {
       return '<h2>Not logged in</h2>';
     }
   }
 
-  private function renderLink() {
-    if (isset($_GET['register'])) {
+  private function renderLink() 
+  {
+    if (isset($_GET['register'])) 
+    {
       return '<a href="?">Back to login</a>';
     }
-
-    return '<a href="?register">Register a new user</a>';
+    // else if($isLoggedIn = true)
+    // {
+    //   return 'HEEJ';
+    // }
+    else
+    {
+      return '<a href="?register">Register a new user</a>';
+    }
   }
 }

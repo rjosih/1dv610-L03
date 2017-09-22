@@ -25,19 +25,23 @@ $lv = new LayoutView();
 
 
 
-if(isset($_POST['LoginView::Logout']))
-{
-    if (isset($_SESSION['Username']) && $_SESSION['Username'] == "Admin") {
-        $_SESSION['message'] = "Bye bye!";
+
+
+    if(isset($_POST['LoginView::Logout']))
+    {
+        if (isset($_SESSION['Username']) && $_SESSION['Username'] == "Admin") 
+        {
+            $_SESSION['message'] = "Bye bye!";
+        }
+        $_SESSION['Username'] = '';
     }
-    $_SESSION['Username'] = '';
-}
-else if(isset($_POST['LoginView::Login']))
-{    
-    if ($_SESSION['Username'] == "") {
-        $_SESSION['message'] = "Welcome";
+        else if(isset($_POST['LoginView::Login']))
+    {    
+        if ($_SESSION['Username'] == "") 
+        {
+            $_SESSION['message'] = "Welcome";
+        }
     }
-}
 
 
 
@@ -50,7 +54,8 @@ if (isset($_POST['LoginView::Password']) && $_POST['LoginView::Password'] == "Pa
     $_SESSION['Password'] = $_POST['LoginView::Password'];
 }
 
-if (isset($_GET['register'])) {
+if(isset($_GET['register'])) 
+{
     if(isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
     {
         $lv->render(true, $registerView, $dtv);
@@ -59,14 +64,16 @@ if (isset($_GET['register'])) {
     {
         $lv->render(false, $registerView, $dtv);
     }
-} else {
-    if(isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
+    } 
+else 
     {
-        $lv->render(true, $v, $dtv);
+        if(isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
+        {
+                $lv->render(true, $v, $dtv);
+        }
+        else
+        {
+            $lv->render(false, $v, $dtv);
+        }
     }
-    else
-    {
-        $lv->render(false, $v, $dtv);
-    }
-}
 
