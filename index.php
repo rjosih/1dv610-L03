@@ -23,7 +23,18 @@ $registerView = new RegisterView();
 $dtv = new DateTimeView();
 $lv = new LayoutView();
 
-
+    if(isset($_COOKIE['LoginView::CookieName']) && isset($_COOKIE['LoginView::CookiePassword']))
+    {
+        if(!isset($_SESSION['Username']) || $_SESSION['Username'] == '')
+        {
+            if($_COOKIE['LoginView::CookieName'] == 'Admin' && $_COOKIE['LoginView::CookiePassword'] == 'Password')
+            {
+                $_SESSION['Username'] = 'Admin';
+                $_SESSION['Password'] = 'Password';
+                $_SESSION['message'] = 'Welcome back with cookie';
+            }
+        }
+    }
 
 
 
@@ -37,12 +48,17 @@ $lv = new LayoutView();
     }
         else if(isset($_POST['LoginView::Login']))
     {    
-        if ($_SESSION['Username'] == "") 
+        if ($_SESSION['Username'] == "" &&  isset($_POST['LoginView::KeepMeLoggedIn'])) 
+        {
+            $_SESSION['message'] = "Welcome and you will be rembered";
+        }
+        else if($_SESSION['Username'] == "")
         {
             $_SESSION['message'] = "Welcome";
         }
+    
     }
-
+        
 
 
 // om båda inputfälten är korrekt ifyllda med Admin och Password
@@ -52,6 +68,12 @@ if (isset($_POST['LoginView::Password']) && $_POST['LoginView::Password'] == "Pa
     //sätter sessioner
     $_SESSION['Username'] = $_POST['LoginView::UserName'];
     $_SESSION['Password'] = $_POST['LoginView::Password'];
+    
+    if(isset($_POST['LoginView::KeepMeLoggedIn']))
+    {
+        setcookie('LoginView::CookieName', $_SESSION['Username'], time() + (86400 * 30), "/" );
+        setcookie('LoginView::CookiePassword', $_SESSION['Password'], time() + (86400 * 30), "/" );
+    }
 }
 
 if(isset($_GET['register'])) 

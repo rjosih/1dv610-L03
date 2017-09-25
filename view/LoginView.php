@@ -34,11 +34,6 @@ class LoginView {
 
 			if (isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
 			{
-				if (isset($_POST['LoginView::Login'])) 
-				{
-					// $message = 'Welcome';
-				}
-				
 				return $this->generateLogoutButtonHTML($message);
 			}
 			
@@ -51,15 +46,13 @@ class LoginView {
 				else if($_POST[self::$password] == '')
 				{
 					$message = 'Password is missing';
-					
 				}
 				else
-				
 				{
 					$message = 'Wrong name or password';
 				}
 			}
-		// }
+	
 		$response = $this->generateLoginFormHTML($message);
 		$_SESSION['message'] = '';
 		return $response;
@@ -134,5 +127,17 @@ class LoginView {
 		return "";
 
 	}
+
+	private function keepMeLoggedIn()
+	{
+		//när knappen klickas i sätts sessionen
+		if(isset($_POST[self::$keep]))
+		{
+			setcookie(self::$cookieName, $_SESSION['UserName'], time() + (86400 * 30), "/" );
+			setcookie(self::$cookiePassword, $_SESSION['Password'], time() + (86400 * 30), "/" );
+			
+		}
+	}
+
 	
 }
