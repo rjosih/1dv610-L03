@@ -3,9 +3,11 @@
 session_start();
 
 $_SESSION['message'] = '';
-if (!isset($_SESSION['Username'])) {
-    $_SESSION['Username'] = '';
-}
+    
+if (!isset($_SESSION['Username'])) 
+    {
+        $_SESSION['Username'] = '';
+    }
 
 //INCLUDE THE FILES NEEDED...
 require_once('view/LoginView.php');
@@ -21,7 +23,7 @@ ini_set('display_errors', 'On');
 $v = new LoginView();
 $registerView = new RegisterView();
 $dtv = new DateTimeView();
-$lv = new LayoutView();
+$layoutView = new LayoutView();
 
     if(isset($_COOKIE['LoginView::CookieName']) && isset($_COOKIE['LoginView::CookiePassword']))
     {
@@ -37,13 +39,16 @@ $lv = new LayoutView();
     }
 
 
-
     if(isset($_POST['LoginView::Logout']))
-    {
+    {   
         if (isset($_SESSION['Username']) && $_SESSION['Username'] == "Admin") 
         {
+    
             $_SESSION['message'] = "Bye bye!";
-            session_unset();
+            unset($_COOKIE['LoginView::CookieName']);
+            unset($_COOKIE['LoginView::CookiePassword']);
+            setcookie("LoginView::CookieName", "", time() -3600, "/" );
+            setcookie("LoginView::CookiePassword", "", time() -3600, "/");
         }
         $_SESSION['Username'] = '';
     }
@@ -65,12 +70,9 @@ $lv = new LayoutView();
     }
         
 
-
-// om båda inputfälten är korrekt ifyllda med Admin och Password
-
 if (isset($_POST['LoginView::Password']) && $_POST['LoginView::Password'] == "Password"  && (isset($_POST['LoginView::UserName']) && $_POST['LoginView::UserName'] == "Admin"))
 {
-    //sätter sessioner
+   
     $_SESSION['Username'] = $_POST['LoginView::UserName'];
     $_SESSION['Password'] = $_POST['LoginView::Password'];
     
@@ -81,26 +83,26 @@ if (isset($_POST['LoginView::Password']) && $_POST['LoginView::Password'] == "Pa
     }
 }
 
-if(isset($_GET['register'])) 
+if(isset($_GET['register']) || isset($_GET['?register']))
 {
     if(isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
     {
-        $lv->render(true, $registerView, $dtv);
+        $layoutView->render(true, $registerView, $dtv);
     }
     else
     {
-        $lv->render(false, $registerView, $dtv);
+        $layoutView->render(false, $registerView, $dtv);
     }
     } 
 else 
     {
         if(isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
         {
-                $lv->render(true, $v, $dtv);
+                $layoutView->render(true, $v, $dtv);
         }
         else
         {
-            $lv->render(false, $v, $dtv);
+            $layoutView->render(false, $v, $dtv);
         }
     }
 

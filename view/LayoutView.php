@@ -43,7 +43,7 @@ class LayoutView
 
   private function renderLink() 
   {
-    if (isset($_GET['register'])) 
+    if (isset($_GET['register']) || isset($_GET['?register'])) 
     {
       return '<a href="?">Back to login</a>';
     }

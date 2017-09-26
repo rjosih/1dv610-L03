@@ -89,6 +89,7 @@ class LoginView {
 		}
 
 		return '
+		
 			<form method="post" name="form" > 
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
