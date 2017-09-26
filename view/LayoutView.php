@@ -1,6 +1,4 @@
-<?php
-	// setcookie($coookieName, $cookiePassword, time() + (86400 * 30), "/" );
-  
+<?php  
 
 class LayoutView 
 {

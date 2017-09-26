@@ -43,6 +43,7 @@ $lv = new LayoutView();
         if (isset($_SESSION['Username']) && $_SESSION['Username'] == "Admin") 
         {
             $_SESSION['message'] = "Bye bye!";
+            session_unset();
         }
         $_SESSION['Username'] = '';
     }
@@ -55,6 +56,10 @@ $lv = new LayoutView();
         else if($_SESSION['Username'] == "")
         {
             $_SESSION['message'] = "Welcome";
+        }
+        else
+        {
+            $_SESSION['message'] = "";
         }
     
     }

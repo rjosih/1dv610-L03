@@ -14,18 +14,22 @@ class RegisterView {
     {
         $response = '';
         $SamePassword = '';
-        $Msg = "";
+        $Msg = '';
 
         if(isset($_POST[self::$DoRegistration]))
         {
             if(strlen($_POST[self::$UserName]) < 3)
             {
-                $Msg .= "Username has too few characters, at least 3 characters.";
+                $Msg .= "Username has too few characters, at least 3 characters." . "<br>";
             }
 
             if(strlen($_POST[self::$Password]) < 6)
             {
                 $Msg .= "Password has too few characters, at least 6 characters.";
+            }
+            else if($_POST[self::$Password] != $_POST[self::$PasswordRepeat])
+            {
+                $Msg .= "Passwords do not match.";
             }
         }
 
