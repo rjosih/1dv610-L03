@@ -8,7 +8,7 @@ class RegisterView {
     private static $Password = 'RegisterView::Password';
     private static $PasswordRepeat = 'RegisterView::PasswordRepeat';
     private static $MessageInRegister = 'RegisterView::Message';
-    private static $DoRegistration = 'RegisterView::DoRegistration';
+    private static $DoRegistration = 'RegisterView::Register';
 
     public function response()
     {
