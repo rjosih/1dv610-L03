@@ -3,6 +3,10 @@
 session_start();
 
 $_SESSION['message'] = '';
+
+if (!isset($_SESSION['message2'])) {
+    $_SESSION['message2'] = '';
+}
     
 if (!isset($_SESSION['Username'])) 
     {
