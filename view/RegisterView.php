@@ -31,7 +31,11 @@ class RegisterView {
             {
                 $MessageInRegister .= "Passwords do not match.";
             }
-            else if(strlen($_POST[self::$UserName]) >= 3 && strlen($_POST[self::$Password]) >= 6 && strlen($_POST[self::$Password]) == strlen($_POST[self::$PasswordRepeat]))
+            else if($_POST[self::$UserName] == 'Admin')
+            {
+                $MessageInRegister = 'User exists, pick another username.';
+            }
+            else if(strlen($_POST[self::$UserName]) >= 3 && ($_POST[self::$UserName]) !== 'Admin' && strlen($_POST[self::$Password]) >= 6 && strlen($_POST[self::$Password]) == strlen($_POST[self::$PasswordRepeat]))
             {
                 $MessageInRegister = "Registered new user.";
             }
@@ -64,7 +68,7 @@ class RegisterView {
                 <input type="password" size="20" id="' . self::$PasswordRepeat . '" name="' . self::$PasswordRepeat . '" value=""/>
                 <br>
                 
-                <input id="submit" type="submit" name=' . self::$DoRegistration . '  value="Register" />
+                <input id="submit"  type="submit" name=' . self::$DoRegistration . '  value="Register" />
 
             </fieldset>
         </form>
