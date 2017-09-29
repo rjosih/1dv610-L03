@@ -95,10 +95,10 @@ class LoginView {
 					<legend>Login - enter Username and password</legend>
 					
 					
-					<p id="' . self::$messageId . '">' . $message . $_SESSION['message'] . $_SESSION['message2'] . '</p>
+					<p id="' . self::$messageId . '">' . $message . $_SESSION['message'] . '</p>
 					
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="'  . $_SESSION['NewMember'] .  ' '  . $this->getRequestUserName() .  '" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="'  . $this->getRequestUserName() .  '" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />

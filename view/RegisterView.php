@@ -9,15 +9,12 @@ class RegisterView {
     private static $PasswordRepeat = 'RegisterView::PasswordRepeat';
     private static $MessageInRegister = 'RegisterView::Message';
     private static $DoRegistration = 'RegisterView::Register';
-    private static $message2 = 'RegisterView::message2';
 
     public function response()
     {
         $response = '';
         $SamePassword = '';
         $MessageInRegister = '';
-        $message2 = '';
-        $_SESSION['message2'] = '';
 
         if(isset($_POST[self::$DoRegistration]))
         {
@@ -28,22 +25,18 @@ class RegisterView {
 
             if(strlen($_POST[self::$Password]) < 6)
             {
-                $MessageInRegister .= "Password has too few characters, at least 6 characters." . "<br>";
+                $MessageInRegister .= "Password has too few characters, at least 6 characters.";
             }
             else if($_POST[self::$Password] != $_POST[self::$PasswordRepeat])
             {
-                $MessageInRegister .= " Passwords do not match." . "<br>";
+                $MessageInRegister .= "Passwords do not match.";
             }
             else if(strlen($_POST[self::$UserName]) >= 3 && strlen($_POST[self::$Password]) >= 6 && strlen($_POST[self::$Password]) == strlen($_POST[self::$PasswordRepeat]))
             {
-                $_SESSION['message2'] = " Registered new user." ;
-                $_SESSION['NewMember'] = $this->getRequestUserName();
-                header("Location: index.php");
-                die();
+                $MessageInRegister = "Registered new user.";
             }
         }
-        Friday, the 29th of September 2017, The time is 09:32:44
-        Friday, the 29th of September 2017, The time is 7:35:20
+
         $response = $this->generateMessage($MessageInRegister);;
         return $response;
     }
