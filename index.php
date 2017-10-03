@@ -1,7 +1,7 @@
 <?php
 
-// namespace w3
-// {
+namespace w3
+{
     session_start();
         
     $_SESSION['message'] = '';
@@ -108,4 +108,4 @@
             $layoutView->render(false, $v, $dtv);
         }
     }
-// }        
+}        

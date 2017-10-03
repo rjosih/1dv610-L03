@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 
 namespace w3
 {
@@ -20,4 +20,4 @@ namespace w3
             }
         }
     }
-}
+} -->

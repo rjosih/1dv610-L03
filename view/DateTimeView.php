@@ -1,7 +1,7 @@
 <?php
 
-namespace w3
-{
+// namespace w3
+// {
 	class DateTimeView 
 	{		
 		public function show() 
@@ -18,4 +18,4 @@ namespace w3
 			return '<p>' . $timeString .  '</p>';
 		}
 	}	
-}
+// }

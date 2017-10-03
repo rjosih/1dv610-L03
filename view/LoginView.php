@@ -1,7 +1,7 @@
 <?php
 
-namespace w3 
-{
+// namespace w3 
+// {
 	require_once('model/SessionFile.php');
 	class LoginView 
 	{
@@ -142,4 +142,4 @@ namespace w3
 			}
 		}
 	}
-}
+// }

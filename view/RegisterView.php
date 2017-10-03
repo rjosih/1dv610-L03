@@ -1,7 +1,7 @@
 <?php
 
-namespace w3
-{
+// namespace w3
+// {
     class RegisterView 
     {    
         private static $UserName = 'RegisterView::UserName';
@@ -84,4 +84,4 @@ namespace w3
             return "";
         }
     }
-}
+// }
