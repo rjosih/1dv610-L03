@@ -1,5 +1,6 @@
 <?php
 
+
 class LoginView {
 	private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
@@ -10,6 +11,8 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 	public static $usernameInInput = '';
+	public static $loggedIn = 'Loginview::loggedIn';
+	
 
 	
 
@@ -22,6 +25,8 @@ class LoginView {
 	 */
 	public function response() 
 	{
+		require_once('model/SessionFile.php');
+
 		$message = '';
 		$response = '';
 		
@@ -32,7 +37,7 @@ class LoginView {
 			return $this->generateLoginFormHTML($message);
 		}
 
-			if (isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
+			if (loggedIn() = true)
 			{
 				return $this->generateLogoutButtonHTML($message);
 			}
