@@ -2,7 +2,7 @@
 
 // namespace w3 
 // {
-	require_once('model/SessionFile.php');
+	// require_once('model/SessionFile.php');
 	class LoginView 
 	{
 			private static $login = 'LoginView::Login';
@@ -34,7 +34,7 @@
 				return $this->generateLoginFormHTML($message);
 			}
 			//loggedIn()
-				if (loggedIn() == true)
+				if (isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
 				{
 					return $this->generateLogoutButtonHTML($message);
 				}
