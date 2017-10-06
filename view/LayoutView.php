@@ -2,7 +2,7 @@
 
 class LayoutView 
 {
-  public function render($isLoggedIn, LoginView $LayoutView, DateTimeView $DateTimeView) 
+  public function render(LoginModel $model, LoginView $LoginView, DateTimeView $DateTimeView) 
   {
     echo '<!DOCTYPE html>
       <html>
@@ -13,10 +13,10 @@ class LayoutView
         <body>
           <h1>Assignment 2</h1>
           ' . $this->renderLink() . '
-          ' . $this->renderIsLoggedIn($isLoggedIn) . '
+          ' . $this->renderIsLoggedIn($model->isLoggedIn()) . '
           <br>
           <div class="container">
-              ' . $LayoutView->response() . '
+              ' . $LoginView->response($model) . '
               
               ' . $DateTimeView->show() . '
           </div>
@@ -38,7 +38,7 @@ class LayoutView
   }
   private function renderLink() 
   {
-    if (isset($_GET['register']) || isset($_GET['?register'])) 
+    if (isset($_GET['register'])) 
     {
       return '<a href="?">Back to login</a>';
     }

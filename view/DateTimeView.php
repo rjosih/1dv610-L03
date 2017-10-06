@@ -1,7 +1,5 @@
 
 <?php
-// namespace w3
-// {
 	class DateTimeView 
 	{		
 		public function show() 
@@ -18,4 +16,3 @@
 			return '<p>' . $timeString .  '</p>';
 		}
 	}	
-// }

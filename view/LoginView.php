@@ -11,24 +11,18 @@ class LoginView
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
-	
 
-	/**
-	 * Create HTTP response
-	 *
-	 * Should be called after a login attempt has been determined
-	 *
-	 * @return  void BUT writes to standard output and cookies!
-	 */
-	public function response() 
+	public function response(LoginModel $model)
 	{
-		$message = '';
-		
-		$response = $this->generateLoginFormHTML($message);
-		//$response .= $this->generateLogoutButtonHTML($message);
-		return $response;
+		if($model->isLoggedIn()) 
+		{
+			return $this->generateLogoutButtonHTML($model->message);
+		}
+		else { 
+			$message = '';
+			return $this->generateLoginFormHTML($model->message);
+		}
 	}
-
 	/**
 	* Generate HTML code on the output buffer for the logout button
 	* @param $message, String output message
@@ -74,12 +68,30 @@ class LoginView
 	}
 	
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
-	private function getRequestUserName() 
+	public function getRequestUserName() 
 	{
 		//RETURN REQUEST VARIABLE: USERNAME
 		if(isset($_POST[self::$name]))
 		{
 			return $_POST[self::$name];
+		}
+		return "";
+	}
+
+	public function postPassword()
+	{
+		if(isset($_POST[self::$password]))
+		{
+			return $_POST[self::$password];
+		}
+		return "";
+	}
+
+	public function logOut()
+	{
+		if($_POST['LoginView::Logout'])
+		{
+			return $_POST['LoginView::Logout'];
 		}
 		return "";
 	}
