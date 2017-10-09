@@ -33,7 +33,7 @@ class LayoutView
     }
     else 
     {
-      return '<h2>Not logged in</h2>';
+      return '<h2>Notn logged in</h2>';
     }
   }
   private function renderLink() 

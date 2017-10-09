@@ -82,7 +82,7 @@ class LoginView
 	{
 		if(isset($_POST[self::$password]))
 		{
-			return $_POST[self::$password];
+			return isset($_POST[self::$password]);
 		}
 		return "";
 	}
@@ -92,6 +92,24 @@ class LoginView
 		if($_POST['LoginView::Logout'])
 		{
 			return $_POST['LoginView::Logout'];
+		}
+		return "";
+	}
+
+	public function setCookieName()
+	{
+		if(setcookie('LoginView::CookieName', $_SESSION['Username'], time() + (86400 * 30), "/" ))
+		{
+			return setcookie('LoginView::CookieName', $_SESSION['Username'], time() + (86400 * 30), "/" );
+		}
+		return "";
+	}
+
+	public function setCookiePassword()
+	{
+		if(setcookie('LoginView::CookiePassword', $_SESSION['Password'], time() + (86400 * 30), "/" ))
+		{
+			return setcookie('LoginView::CookiePassword', $_SESSION['Password'], time() + (86400 * 30), "/" );
 		}
 		return "";
 	}

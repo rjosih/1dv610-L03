@@ -3,6 +3,7 @@
 class LoginModel
 {
   public $message;
+ 
   public function sessionUserName()
   {
     if($_SESSION['Username'])
@@ -11,6 +12,7 @@ class LoginModel
     }
     return "";
   }
+
 
   public function sessionUserNameIsAdmin()
   {
@@ -57,14 +59,22 @@ class LoginModel
     {
         $this->message = 'Password is missing';
     }
+    else if($postUsername !== 'Admin' || $postPassword == 'Password')
+    {
+       $this->message = 'Wrong name or password';
+    }
     else
     {
-        $this->message = 'Wrong name or password';
+        $this->message = '';
     }
   }
 public function login()
 {
   // sätt session så man loggar in
+  // if()
+  // {
+
+  // }
 }
 
   public function isLoggedIn()
