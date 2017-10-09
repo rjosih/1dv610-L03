@@ -25,11 +25,11 @@ class LoginController
             
             
             $logOut = $this->view->logOut();
-            $sessionMessage = $this->view->sessionMessage();
-            $sessionUsername = $this->view->sessionUserName();
-            $sessionPassword = $this->view->sessionPassword();
-            $sessionUsernameIsAdmin = $this->view->sessionUserNameIsAdmin();
-            $sessionPasswordIsPassword = $this->view->sessionPasswordIsPassword();
+            $sessionMessage = $this->model->sessionMessage();
+            $sessionUsername = $this->model->sessionUserName();
+            $sessionPassword = $this->model->sessionPassword();
+            $sessionUsernameIsAdmin = $this->model->sessionUserNameIsAdmin();
+            $sessionPasswordIsPassword = $this->model->sessionPasswordIsPassword();
             $message = '';
             $response = '';
           
@@ -88,41 +88,41 @@ class LoginController
             }
                 
         
-        if (isset($_POST['LoginView::Password']) && $_POST['LoginView::Password'] == "Password"  && (isset($_POST['LoginView::UserName']) && $_POST['LoginView::UserName'] == "Admin"))
-        {
-           
-            $_SESSION['Username'] = $_POST['LoginView::UserName'];
-            $_SESSION['Password'] = $_POST['LoginView::Password'];
+            if (isset($_POST['LoginView::Password']) && $_POST['LoginView::Password'] == "Password"  && (isset($_POST['LoginView::UserName']) && $_POST['LoginView::UserName'] == "Admin"))
+            {
             
-            if(isset($_POST['LoginView::KeepMeLoggedIn']))
-            {
-                setcookie('LoginView::CookieName', $_SESSION['Username'], time() + (86400 * 30), "/" );
-                setcookie('LoginView::CookiePassword', $_SESSION['Password'], time() + (86400 * 30), "/" );
+                $_SESSION['Username'] = $_POST['LoginView::UserName'];
+                $_SESSION['Password'] = $_POST['LoginView::Password'];
+                
+                if(isset($_POST['LoginView::KeepMeLoggedIn']))
+                {
+                    setcookie('LoginView::CookieName', $_SESSION['Username'], time() + (86400 * 30), "/" );
+                    setcookie('LoginView::CookiePassword', $_SESSION['Password'], time() + (86400 * 30), "/" );
+                }
             }
-        }
-        
-        if(isset($_GET['register']) || isset($_GET['?register']))
-        {
-            if(isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
-            {
-                $layoutView->render(true, $registerView, $dtv);
-            }
-            else
-            {
-                $layoutView->render(false, $registerView, $dtv);
-            }
-            } 
-        else 
+            
+            if(isset($_GET['register']) || isset($_GET['?register']))
             {
                 if(isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
                 {
-                        $layoutView->render(true, $v, $dtv);
+                    $layoutView->render(true, $registerView, $dtv);
                 }
                 else
                 {
-                    $layoutView->render(false, $v, $dtv);
+                    $layoutView->render(false, $registerView, $dtv);
                 }
-            }
+                } 
+            else 
+                {
+                    if(isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
+                    {
+                            $layoutView->render(true, $v, $dtv);
+                    }
+                    else
+                    {
+                        $layoutView->render(false, $v, $dtv);
+                    }
+                }
         
         
         }

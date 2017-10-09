@@ -2,7 +2,7 @@
 
 class LayoutView 
 {
-  public function render(LoginModel $model, LoginView $LoginView, DateTimeView $DateTimeView) 
+  public function render(LoginModel $model, $view, DateTimeView $DateTimeView) 
   {
     echo '<!DOCTYPE html>
       <html>
@@ -16,7 +16,7 @@ class LayoutView
           ' . $this->renderIsLoggedIn($model->isLoggedIn()) . '
           <br>
           <div class="container">
-              ' . $LoginView->response($model) . '
+              ' . $view->response($model) . '
               
               ' . $DateTimeView->show() . '
           </div>
@@ -46,5 +46,10 @@ class LayoutView
     {
       return '<a href="?register">Register a new user</a>';
     }
+  }
+
+  public function getRegisterView()
+  {
+  return isset($_GET['register']);
   }
 }

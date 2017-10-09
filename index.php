@@ -29,7 +29,15 @@ $isLoggedIn = false;
 // skicka model till vyn
 $model = $LoginController->Login();
 
-$LayoutView->render($model, $LoginView, $DateTimeView);
+if ($LayoutView->getRegisterView()) 
+{
+    $LayoutView->render($model, $registerView, $DateTimeView);
+}
+else
+{
+    $LayoutView->render($model, $LoginView, $DateTimeView);
+}
+
         
       
 // if($test)

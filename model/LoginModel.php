@@ -25,7 +25,7 @@ class LoginModel
 
   public function sessionPassword()
   {
-    if($_SESSION['Password'])
+    if(isset($_SESSION['Password']))
     {
       return $_SESSION['Password'];
     }
@@ -34,7 +34,7 @@ class LoginModel
 
   public function sessionPasswordIsPassword()
   {
-    if($_SESSION['Password'] == 'Password')
+    if(isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password')
     {
       $_SESSION['Password'] == 'Password';
     }
