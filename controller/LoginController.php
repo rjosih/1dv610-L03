@@ -14,17 +14,22 @@ class LoginController
         
         public function Login() 
         {
-            // kontollera om man tryckt på Loginknappen
-            
-            //loginView
+            // kontollera uppgifterna mot view
             $postPassword = $this->view->postPassword();
             $postUsername = $this->view->getRequestUserName();
+
+            $LoginViewCookieName = $this->view->LoginViewCookieName();
+            $LoginViewCookiePassword = $this->view->LoginViewCookiePassword();
+
+            $keepMeLoggedInButton = $this->view->keepMeLoggedInButton(); 
+            $LoginViewLogin = $this->view->LoginViewLogin();
+            $LoginViewLogout = $this->view->LoginViewLogout();
+            $logOut = $this->view->logOut();
+            $getRegister = $this->view->getRegister();
+
             
             // kontollera uppgifterna mot model
-            $this->model->validateInfo($postUsername, $postPassword);
-            
-            
-            $logOut = $this->view->logOut();
+            $this->model->validateInfo($postUsername, $postPassword); 
             $sessionMessage = $this->model->sessionMessage();
             $sessionUsername = $this->model->sessionUserName();
             $sessionPassword = $this->model->sessionPassword();
@@ -41,42 +46,41 @@ class LoginController
         
         public function ValidateLoginInput()
         {
-            if(isset($_COOKIE['LoginView::CookieName']) && isset($_COOKIE['LoginView::CookiePassword']))
+            if($LoginViewCookieName && $LoginViewCookiePassword)
             {
-                if(!isset($_SESSION['Username']) || $_SESSION['Username'] == '')
+                if(!$sessionUsername || $sessionUsername == '')
                 {
-                    if($_COOKIE['LoginView::CookieName'] == 'Admin' && $_COOKIE['LoginView::CookiePassword'] == 'Password')
+                    if($LoginViewCookieName == 'Admin' && $LoginViewCookiePassword == 'Password')
                     {
                         $sessionUsernameIsAdmin;
                         $sessionUsernameIsAdmin;
-                        $_SESSION['Username'] = 'Admin';
-                        $_SESSION['Password'] = 'Password';
                         $_SESSION['message'] = 'Welcome back with cookie';
                     }
                 }
             }
         
         
-            if(isset($_POST['LoginView::Logout']))
+            if($LoginViewLogout)
             {   
-                if (isset($_SESSION['Username']) && $_SESSION['Username'] == "Admin") 
+                if (isset($sessionUsername) && $sessionUsernameIsAdmin) 
                 {
             
                     $_SESSION['message'] = "Bye bye!";
-                    unset($_COOKIE['LoginView::CookieName']);
-                    unset($_COOKIE['LoginView::CookiePassword']);
-                    setcookie("LoginView::CookieName", "", time() -3600, "/" );
-                    setcookie("LoginView::CookiePassword", "", time() -3600, "/");
+                    unset($LoginViewCookieName);
+                    unset($LoginViewCookiePassword);
+                    return $_COOKIE['LoginView::CookieName'];
+                    setcookie($LoginViewCookieName, "", time() -3600, "/" );
+                    setcookie($LoginViewCookiePassword, "", time() -3600, "/");
                 }
-                $_SESSION['Username'] = '';
+                $sessionUsername = '';
             }
-                else if(isset($_POST['LoginView::Login']))
+                else if($LoginViewLogin)
             {    
-                if ($_SESSION['Username'] == "" &&  isset($_POST['LoginView::KeepMeLoggedIn'])) 
+                if ($sessionUsername == "" &&  $keepMeLoggedInButton) 
                 {
                     $_SESSION['message'] = "Welcome and you will be rembered";
                 }
-                else if($_SESSION['Username'] == "")
+                else if($sessionUsername == "")
                 {
                     $_SESSION['message'] = "Welcome";
                 }
@@ -88,22 +92,22 @@ class LoginController
             }
                 
         
-            if (isset($_POST['LoginView::Password']) && $_POST['LoginView::Password'] == "Password"  && (isset($_POST['LoginView::UserName']) && $_POST['LoginView::UserName'] == "Admin"))
+            if (isset($postPassword) && $postPassword == "Password"  && (isset($postUsername) && $postUsername == "Admin"))
             {
-            
-                $_SESSION['Username'] = $_POST['LoginView::UserName'];
-                $_SESSION['Password'] = $_POST['LoginView::Password'];
                 
-                if(isset($_POST['LoginView::KeepMeLoggedIn']))
+                $sessionUsername = $postUsername;
+                $sessionPassword = $postPassword;
+                
+                if($keepMeLoggedInButton)
                 {
-                    setcookie('LoginView::CookieName', $_SESSION['Username'], time() + (86400 * 30), "/" );
-                    setcookie('LoginView::CookiePassword', $_SESSION['Password'], time() + (86400 * 30), "/" );
+                    setcookie('LoginView::CookieName', $sessionUsername, time() + (86400 * 30), "/" );
+                    setcookie('LoginView::CookiePassword', $sessionPassword, time() + (86400 * 30), "/" );
                 }
             }
             
-            if(isset($_GET['register']) || isset($_GET['?register']))
+            if($getRegister)
             {
-                if(isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
+                if($sessionUsername && $sessionPassword && $sessionUsernameIsAdmin && $sessionPasswordIsPassword)
                 {
                     $layoutView->render(true, $registerView, $dtv);
                 }
@@ -114,7 +118,7 @@ class LoginController
                 } 
             else 
                 {
-                    if(isset($_SESSION['Username']) && isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password' && $_SESSION['Username'] =='Admin')
+                    if($sessionUsername && $sessionPassword && $sessionUsernameIsAdmin && $sessionPasswordIsPassword)
                     {
                             $layoutView->render(true, $v, $dtv);
                     }

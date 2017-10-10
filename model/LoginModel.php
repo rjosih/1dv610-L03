@@ -82,4 +82,6 @@ public function login()
     // kolla session om man verkligen är inloggad
     return false;
   }
+
+  
 }
