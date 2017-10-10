@@ -6,7 +6,7 @@ class LoginModel
  
   public function sessionUserName()
   {
-    if($_SESSION['Username'])
+    if(isset($_SESSION['Username']))
     {
       return $_SESSION['Username'];
     }
@@ -16,7 +16,7 @@ class LoginModel
 
   public function sessionUserNameIsAdmin()
   {
-    if($_SESSION['Username'] =='Admin')
+    if(isset($_SESSION['Username']) && $_SESSION['Username'] =='Admin')
     {
       return $_SESSION['Username'] =='Admin';
     }
