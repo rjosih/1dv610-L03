@@ -18,9 +18,9 @@ class LoginModel
   {
     if(isset($_SESSION['Username']) && $_SESSION['Username'] =='Admin')
     {
-      return $_SESSION['Username'] =='Admin';
+      return true;
     }
-    return "";
+    return false;
   }
 
   public function sessionPassword()
@@ -36,9 +36,9 @@ class LoginModel
   {
     if(isset($_SESSION['Password']) && $_SESSION['Password'] == 'Password')
     {
-      $_SESSION['Password'] == 'Password';
+      return true;
     }
-    return "";
+    return false;
   }
 
   public function sessionMessage()
@@ -59,27 +59,37 @@ class LoginModel
     {
         $this->message = 'Password is missing';
     }
-    else if($postUsername !== 'Admin' || $postPassword == 'Password')
+    else if($postUsername !== 'Admin' || $postPassword !== 'Password')
     {
        $this->message = 'Wrong name or password';
     }
     else
     {
         $this->message = '';
+        return true;
     }
   }
   public function login()
   {
-    // sätt session så man loggar in
-    // if()
-    // {
+    $_SESSION['Username'] = 'Admin';
+    $_SESSION['Password'] = 'Password';
+    $this->message = "Welcome";
+  }
 
-    // }
+  public function logout()
+  {
+    unset($_SESSION['Username']);
+    unset($_SESSION['Password']);
+    $this->message = "Bye bye!";
   }
 
   public function isLoggedIn()
   {
     // kolla session om man verkligen är inloggad
+    if($this->sessionUserNameIsAdmin() && $this->sessionPasswordIsPassword())
+    {
+      return true;
+    }
     return false;
   }
 

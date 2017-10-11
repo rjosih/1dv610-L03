@@ -11,7 +11,6 @@ class LoginView
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
-
 	public function response(LoginModel $model)
 	{
 		if($model->isLoggedIn()) 
@@ -23,11 +22,6 @@ class LoginView
 			return $this->generateLoginFormHTML($model->message);
 		}
 	}
-	/**
-	* Generate HTML code on the output buffer for the logout button
-	* @param $message, String output message
-	* @return  void, BUT writes to standard output!
-	*/
 	private function generateLogoutButtonHTML($message) 
 	{
 		return '
@@ -38,11 +32,6 @@ class LoginView
 		';
 	}
 	
-	/**
-	* Generate HTML code on the output buffer for the logout button
-	* @param $message, String output message
-	* @return  void, BUT writes to standard output!
-	*/
 	private function generateLoginFormHTML($message) 
 	{
 		return '
@@ -80,7 +69,7 @@ class LoginView
 	{
 		if(isset($_POST[self::$password]))
 		{
-			return isset($_POST[self::$password]);
+			return $_POST[self::$password];
 		}
 		return "";
 	}
@@ -94,20 +83,20 @@ class LoginView
 		return "";
 	}
 
-	public function setCookieName()
+	public function CookieNameIsAdmin()
 	{
-		if(setcookie('LoginView::CookieName', $_SESSION['Username'], time() + (86400 * 30), "/" ))
+		if(isset($_COOKIE['LoginView::CookieName']))
 		{
-			return setcookie('LoginView::CookieName', $_SESSION['Username'], time() + (86400 * 30), "/" );
+			return $_COOKIE['LoginView::CookieName'] == 'Admin';
 		}
 		return "";
 	}
 
-	public function setCookiePassword()
+	public function CookiePasswordIsPassword()
 	{
-		if(setcookie('LoginView::CookiePassword', $_SESSION['Password'], time() + (86400 * 30), "/" ))
+		if(isset($_COOKIE['LoginView::CookiePassword']))
 		{
-			return setcookie('LoginView::CookiePassword', $_SESSION['Password'], time() + (86400 * 30), "/" );
+			return  $_COOKIE['LoginView::CookiePassword'] == 'Password';
 		}
 		return "";
 	}
@@ -170,9 +159,9 @@ class LoginView
 	{
 		if(isset($_POST['LoginView::Login']))
 		{
-			return $_POST['LoginView::Login'];
+			return true;
 		}
-		return "";
+		return false;
 	}
 
 	public function LoginViewLogout()
