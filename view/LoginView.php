@@ -67,10 +67,8 @@ class LoginView
 		';
 	}
 	
-	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	public function getRequestUserName() 
 	{
-		//RETURN REQUEST VARIABLE: USERNAME
 		if(isset($_POST[self::$name]))
 		{
 			return $_POST[self::$name];
@@ -132,29 +130,20 @@ class LoginView
 		return "";
 	}
 
-	// public function unsetCookieName()
-	// {
-	// 	if(unset($_COOKIE['LoginView::CookieName']))
-	// 	{	
-	// 		return unset($_COOKIE['LoginView::CookieName']);
-	// 	}
-	// 	return "";
-	// }
-
-	// public function unsetCookiePassword()
-	// {
-	// 	if(unset($_COOKIE['LoginView::CookiePassword']))
-	// 	{
-	// 		return unset($_COOKIE['LoginView::CookiePassword']);
-	// 	}
-	// 	return "";
-	// }
-
 	public function setCookieNameYesterday()
 	{
 		if(setcookie("LoginView::CookieName", "", time() -3600, "/" ))
 		{
 			return setcookie("LoginView::CookieName", "", time() -3600, "/" );
+		}
+		return "";
+	}
+
+	public function setCookiePasswordYesterday()
+	{
+		if(setcookie("LoginView::CookiePassword", "", time() -3600, "/" ))
+		{
+			return setcookie("LoginView::CookiePassword", "", time() -3600, "/" );
 		}
 		return "";
 	}
@@ -193,5 +182,25 @@ class LoginView
 			return $_POST['LoginView::Logout'];
 		}
 		return "";
+	}
+	public function WelcomeBackWithCookie()
+	{
+		return "Welcome back with cookie";
+	}
+	public function WelcomeBackRembered()
+	{
+		return "Welcome back and you will be rembered";
+	}
+	public function Welcome()
+	{
+		return "Welcome";
+	}
+	public function EmptyMessage()
+	{
+		return "";
+	}
+	public function ByeBye()
+	{
+		return "Bye bye!";
 	}
 }

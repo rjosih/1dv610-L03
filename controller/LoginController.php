@@ -21,6 +21,17 @@ class LoginController
             $LoginViewCookieName = $this->view->LoginViewCookieName();
             $LoginViewCookiePassword = $this->view->LoginViewCookiePassword();
 
+            $CookieNameIsAdmin = $this->view->CookieNameIsAdmin();
+            $CookiePasswordIsPassword = $this->view->CookiePasswordIsPassword();
+            $SetCookieNameYesterday = $this->view->SetCookieNameYesterday();
+            $SetCookiePasswordYesterday = $this->view->SetCookiePasswordYesterday();
+            
+            $Welcome = $this->view->Welcome();
+            $WelcomeBackWithCookie = $this->view->WelcomeBackWithCookie();
+            $WelcomeBackRemembered = $this->view->WelcomeBackRembered();
+            $Empty = $this->view->EmptyMessage();
+            $ByeBye = $this->view->ByeBye();
+
             $keepMeLoggedInButton = $this->view->keepMeLoggedInButton(); 
             $LoginViewLogin = $this->view->LoginViewLogin();
             $LoginViewLogout = $this->view->LoginViewLogout();
@@ -30,17 +41,14 @@ class LoginController
             
             // kontollera uppgifterna mot model
             $this->model->validateInfo($postUsername, $postPassword); 
-            $sessionMessage = $this->model->sessionMessage();
+            $SessionMessage = $this->model->sessionMessage();
             $sessionUsername = $this->model->sessionUserName();
             $sessionPassword = $this->model->sessionPassword();
             $sessionUsernameIsAdmin = $this->model->sessionUserNameIsAdmin();
             $sessionPasswordIsPassword = $this->model->sessionPasswordIsPassword();
             $message = '';
             $response = '';
-          
-                
-            // $response = $this->generateLoginFormHTML($message);
-            // $sessionMessage;
+            
             return $this->model;
         }
         
@@ -48,13 +56,13 @@ class LoginController
         {
             if($LoginViewCookieName && $LoginViewCookiePassword)
             {
-                if(!$sessionUsername || $sessionUsername == '')
+                if(!$sessionUsername || $sessionUsername == $Empty)
                 {
-                    if($LoginViewCookieName == 'Admin' && $LoginViewCookiePassword == 'Password')
+                    if($CookieNameIsAdmin && $CookiePasswordIsPassword)
                     {
                         $sessionUsernameIsAdmin;
                         $sessionUsernameIsAdmin;
-                        $_SESSION['message'] = 'Welcome back with cookie';
+                        $SessionMessage = $WelcomeBackWithCookie;
                     }
                 }
             }
@@ -64,33 +72,30 @@ class LoginController
             {   
                 if (isset($sessionUsername) && $sessionUsernameIsAdmin) 
                 {
-            
-                    $_SESSION['message'] = "Bye bye!";
+                    $SessionMessage = $ByeBye;
                     unset($LoginViewCookieName);
                     unset($LoginViewCookiePassword);
-                    return $_COOKIE['LoginView::CookieName'];
-                    setcookie($LoginViewCookieName, "", time() -3600, "/" );
-                    setcookie($LoginViewCookiePassword, "", time() -3600, "/");
+                    $SetCookieNameYesterday
+                    $SetCookiePasswordYesterday
                 }
-                $sessionUsername = '';
+                $sessionUsername = $Empty;
             }
                 else if($LoginViewLogin)
             {    
-                if ($sessionUsername == "" &&  $keepMeLoggedInButton) 
+                if ($sessionUsername == $Empty &&  $keepMeLoggedInButton) 
                 {
-                    $_SESSION['message'] = "Welcome and you will be rembered";
+                    $SessionMessage = $WelcomeBackRemembered;
                 }
-                else if($sessionUsername == "")
+                else if($sessionUsername == $Empty)
                 {
-                    $_SESSION['message'] = "Welcome";
+                    $SessionMessage = $Welcome;
                 }
                 else
                 {
-                    $_SESSION['message'] = "";
+                    $SessionMessage = $Empty;
                 }
             
             }
-                
         
             if (isset($postPassword) && $postPassword == "Password"  && (isset($postUsername) && $postUsername == "Admin"))
             {

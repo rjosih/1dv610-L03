@@ -68,14 +68,14 @@ class LoginModel
         $this->message = '';
     }
   }
-public function login()
-{
-  // sätt session så man loggar in
-  // if()
-  // {
+  public function login()
+  {
+    // sätt session så man loggar in
+    // if()
+    // {
 
-  // }
-}
+    // }
+  }
 
   public function isLoggedIn()
   {
@@ -83,5 +83,5 @@ public function login()
     return false;
   }
 
-  
+
 }
