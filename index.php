@@ -39,28 +39,3 @@ else
 {
     $LayoutView->render($model, $LoginView, $DateTimeView, $Weekend);
 }
-
-        
-      
-// if($test)
-// {
-//     if($test2)
-//     {
-//         $layoutView->render(true, $registerView, $dtv);
-//     }
-//     else
-//     {
-//         $layoutView->render(false, $registerView, $dtv);
-//     }
-// } 
-// else 
-// {
-//     if($test2)
-//     {
-//         $LayoutView->render(true, $LayoutView, $dtv);
-//     }
-//     else
-//     {
-//         $LayoutView->render(false, $LayoutView, $dtv);
-//     }
-// } 

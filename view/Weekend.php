@@ -2,6 +2,8 @@
 
 class Weekend 
 {
+    //TODO 
+    // implement gif it time allows
     public function getTime()
     {
         $weekendDay = date('N');
@@ -9,8 +11,9 @@ class Weekend
         $minutes = date('i');
         $seconds = date('s');
 
+        // difference between Fridag 5pm and now 
         $dayDifference = 5-$weekendDay;
-        $hoursDifference = 11 - $hours;
+        $hoursDifference = 18 - $hours;
         $minuteDifference = 60 - $minutes;
         $secondDifference = 60 -$seconds;
         
