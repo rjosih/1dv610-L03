@@ -83,17 +83,22 @@ class LoginModel
     $_SESSION['Password'] = 'Password';
     $this->message = "Welcome";
   }
+  public function Welcome()
+  {
+    $this->message = "Welcome";
+  }
 
   public function logout()
   {
     unset($_SESSION['Username']);
     unset($_SESSION['Password']);
+    setcookie("LoginView::CookieName", "", time() -3600, "/" );
+    setcookie("LoginView::CookiePassword", "", time() -3600, "/");
     $this->message = "Bye bye!";
   }
 
   public function isLoggedIn()
   {
-    // kolla session om man verkligen är inloggad
     if($this->sessionUserNameIsAdmin() && $this->sessionPasswordIsPassword())
     {
       return true;
@@ -101,5 +106,16 @@ class LoginModel
     return false;
   }
 
+  public function WelcomeBackCookie()
+  {
+    $_SESSION['Username'] = 'Admin';
+    $_SESSION['Password'] = 'Password';
+    $this->message = "Welcome back with cookie";
+  }
+
+  public function WelcomeRemembered()
+  {
+    $this->message = "Welcome back and you will be rembered";
+  }
 
 }

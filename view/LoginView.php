@@ -186,7 +186,22 @@ class LoginView
 	}
 	public function Welcome()
 	{
-		return "Byesad bye!";
+		return "Welcome";
 	}
-
+	public function PostPasswordIsPassword()
+	{
+		if(isset($_POST[self::$password]) == 'Password')
+		{
+			return true;
+		}
+		return false;
+	}
+	public function PostUsernameIsAdmin()
+	{
+		if(isset($_POST[self::$name]) == 'Admin')
+		{
+			return true;
+		}
+		return false;
+	}
 }

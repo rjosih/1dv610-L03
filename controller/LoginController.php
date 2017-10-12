@@ -23,6 +23,8 @@ class LoginController
 
             $CookieNameIsAdmin = $this->view->CookieNameIsAdmin();
             $CookiePasswordIsPassword = $this->view->CookiePasswordIsPassword();
+            $PostUsernameIsAdmin = $this->view->PostUserNameIsAdmin();
+            $PostPasswordIsPassword = $this->view->PostPasswordIsPassword();
             // $SetCookieNameYesterday = $this->view->SetCookieNameYesterday();
             // $SetCookiePasswordYesterday = $this->view->SetCookiePasswordYesterday();
             
@@ -57,7 +59,7 @@ class LoginController
                     {
                         $SessionUsernameIsAdmin;
                         $SessionUsernameIsAdmin;
-                        $_SESSION['message'] = $WelcomeBackWithCookie;
+                        $this->model->WelcomeBackCookie();
                     }
                 }
             }
@@ -66,7 +68,7 @@ class LoginController
             {   
                 if ($SessionUsername && $SessionUsernameIsAdmin) 
                 {
-                    $_SESSION['message']  = $ByeBye;
+                    // $_SESSION['message']  = $ByeBye;
 
                     $this->model->logout();
                     // $SetCookieNameYesterday
@@ -78,11 +80,13 @@ class LoginController
             {
                 if ($this->model->validateInfo($PostUsername, $PostPassword) && $KeepMeLoggedInButton) 
                 {
-                  $_SESSION['message'] = $WelcomeBackRemembered;
+                    $this->model->login();
+                    $this->model->WelcomeRemembered();
                 }
                 else if($this->model->validateInfo($PostUsername, $PostPassword))
                 {
                     $this->model->login();
+                    $this->model->Welcome();
                     // $SessionMessage = $Welcome;
                 }
                 else
@@ -91,7 +95,7 @@ class LoginController
                 }
             }
         
-            if ($PostPassword && $PostPassword == "Password"  && $PostUsername && $PostUsername == "Admin")
+            if ($PostPassword && $PostPasswordIsPassword  && $PostUsername && $PostUsernameIsAdmin)
             {
                 $SessionUsername = $PostUsername;
                 $SessionPassword = $PostPassword;
