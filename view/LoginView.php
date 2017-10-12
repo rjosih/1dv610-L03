@@ -56,6 +56,11 @@ class LoginView
 		';
 	}
 	
+	public function setCookiesYesterday()
+	{
+		setcookie("LoginView::CookieName", "", time() -3600, "/" );
+		setcookie("LoginView::CookiePassword", "", time() -3600, "/" );
+	}
 	public function getRequestUserName() 
 	{
 		if(isset($_POST[self::$name]))
@@ -119,12 +124,7 @@ class LoginView
 		return "";
 	}
 
-	public function setCookiesYesterday()
-	{
-		setcookie("LoginView::CookieName", "", time() -3600, "/" );
-		setcookie("LoginView::CookiePassword", "", time() -3600, "/" );
-	}
-
+	
 	public function getRegister()
 	{
 		if(isset($_GET['register']))
@@ -133,7 +133,7 @@ class LoginView
 		}
 		return "";
 	}
-
+	
 	public function keepMeLoggedInButton()
 	{
 		if(isset($_POST['LoginView::KeepMeLoggedIn']))
@@ -151,7 +151,7 @@ class LoginView
 		}
 		return false;
 	}
-
+	
 	public function LoginViewLogout()
 	{
 		if(isset($_POST['LoginView::Logout']))
@@ -178,4 +178,5 @@ class LoginView
 		}
 		return false;
 	}
+
 }
