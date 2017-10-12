@@ -8,10 +8,10 @@ class LayoutView
       <html>
         <head>
           <meta charset="utf-8">
-          <title>Login Example</title>
+          <title>Rosas hemsida</title>
         </head>
         <body>
-          <h1>Assignment 2</h1>
+          <h1>Assignment 3</h1>
           ' . $this->renderLink() . '
           ' . $this->renderIsLoggedIn($model->isLoggedIn()) . '
           <br>

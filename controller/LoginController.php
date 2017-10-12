@@ -23,13 +23,13 @@ class LoginController
 
             $CookieNameIsAdmin = $this->view->CookieNameIsAdmin();
             $CookiePasswordIsPassword = $this->view->CookiePasswordIsPassword();
-            $SetCookieNameYesterday = $this->view->SetCookieNameYesterday();
-            $SetCookiePasswordYesterday = $this->view->SetCookiePasswordYesterday();
+            // $SetCookieNameYesterday = $this->view->SetCookieNameYesterday();
+            // $SetCookiePasswordYesterday = $this->view->SetCookiePasswordYesterday();
             
             $Welcome = $this->view->Welcome();
             $WelcomeBackWithCookie = $this->view->WelcomeBackWithCookie();
             $WelcomeBackRemembered = $this->view->WelcomeBackRembered();
-            $Empty = $this->view->EmptyMessage();
+            // $Empty = $this->view->EmptyMessage();
             $ByeBye = $this->view->ByeBye();
 
             $KeepMeLoggedInButton = $this->view->keepMeLoggedInButton(); 
@@ -38,29 +38,26 @@ class LoginController
             $LogOut = $this->view->logOut();
             $GetRegister = $this->view->getRegister();
 
-            
             // kontollera uppgifterna mot model
-            $SessionMessage = $this->model->sessionMessage();
+            $SessionMessageEmpty = $this->model->sessionMessage();
             $SessionUsername = $this->model->sessionUserName();
+            $SessionUsernameEmpty = $this->model->sessionUserNameEmpty();
             $SessionPassword = $this->model->sessionPassword();
             $SessionUsernameIsAdmin = $this->model->sessionUserNameIsAdmin();
             $SessionPasswordIsPassword = $this->model->sessionPasswordIsPassword();
             $IsLoggedIn = $this->model->isLoggedIn();
             $Message = '';
             $Response = '';
-            
-
-        
-
+ 
             if($LoginViewCookieName && $LoginViewCookiePassword)
             {
-                if(!$SessionUsername || $SessionUsername == $Empty)
+                if(!$SessionUsername || $SessionUsernameEmpty)
                 {
                     if($CookieNameIsAdmin && $CookiePasswordIsPassword)
                     {
                         $SessionUsernameIsAdmin;
                         $SessionUsernameIsAdmin;
-                        $SessionMessage = $WelcomeBackWithCookie;
+                        $_SESSION['message'] = $WelcomeBackWithCookie;
                     }
                 }
             }
@@ -69,30 +66,29 @@ class LoginController
             {   
                 if ($SessionUsername && $SessionUsernameIsAdmin) 
                 {
-                    $SessionMessage = $ByeBye;
+                    $_SESSION['message']  = $ByeBye;
 
                     $this->model->logout();
                     // $SetCookieNameYesterday
                     // $SetCookiePasswordYesterday
                 }
-                $SessionUsername = $Empty;
+                $SessionUsernameEmpty;
             }
             else if($LoginViewLogin)
             {
                 if ($this->model->validateInfo($PostUsername, $PostPassword) && $KeepMeLoggedInButton) 
                 {
-                    $SessionMessage = $WelcomeBackRemembered;
+                  $_SESSION['message'] = $WelcomeBackRemembered;
                 }
                 else if($this->model->validateInfo($PostUsername, $PostPassword))
                 {
                     $this->model->login();
-                    $SessionMessage = $Welcome;
+                    // $SessionMessage = $Welcome;
                 }
                 else
                 {
-                    $SessionMessage = $Empty;
+                    $SessionMessageEmpty;
                 }
-            
             }
         
             if ($PostPassword && $PostPassword == "Password"  && $PostUsername && $PostUsername == "Admin")
@@ -107,30 +103,7 @@ class LoginController
                 }
             }
             
-            // if($GetRegister)
-            // {
-            //     if($SessionUsername && $SessionPassword && $SessionUsernameIsAdmin && $SessionPasswordIsPassword)
-            //     {
-            //         $layoutView->render(true, $registerView, $dtv);
-            //     }
-            //     else
-            //     {
-            //         $layoutView->render(false, $registerView, $dtv);
-            //     }
-            //     } 
-            // else 
-            //     {
-            //         if($SessionUsername && $SessionPassword && $SessionUsernameIsAdmin && $SessionPasswordIsPassword)
-            //         {
-            //                 $layoutView->render(true, $v, $dtv);
-            //         }
-            //         else
-            //         {
-            //             $layoutView->render(false, $v, $dtv);
-            //         }
-            //     }
-            
-                return $this->model;
+            return $this->model;
             }
 }
 

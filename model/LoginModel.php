@@ -13,6 +13,14 @@ class LoginModel
     return "";
   }
 
+  public function sessionUserNameEmpty()
+  {
+    if(isset($_SESSION['Username']) == '')
+    {
+      return true;
+    }
+    return false;
+  }
 
   public function sessionUserNameIsAdmin()
   {
@@ -43,7 +51,7 @@ class LoginModel
 
   public function sessionMessage()
   {
-    if($_SESSION['message'] = '')
+    if(isset($_SESSION['message']) == '')
     {
       return $_SESSION['message'] = '';
     }

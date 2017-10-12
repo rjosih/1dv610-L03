@@ -119,23 +119,23 @@ class LoginView
 		return "";
 	}
 
-	public function setCookieNameYesterday()
-	{
-		if(setcookie("LoginView::CookieName", "", time() -3600, "/" ))
-		{
-			return setcookie("LoginView::CookieName", "", time() -3600, "/" );
-		}
-		return "";
-	}
+	// public function setCookieNameYesterday()
+	// {
+	// 	if(setcookie("LoginView::CookieName", "", time() -3600, "/" ))
+	// 	{
+	// 		return setcookie("LoginView::CookieName", "", time() -3600, "/" );
+	// 	}
+	// 	return "";
+	// }
 
-	public function setCookiePasswordYesterday()
-	{
-		if(setcookie("LoginView::CookiePassword", "", time() -3600, "/" ))
-		{
-			return setcookie("LoginView::CookiePassword", "", time() -3600, "/" );
-		}
-		return "";
-	}
+	// public function setCookiePasswordYesterday()
+	// {
+	// 	if(setcookie("LoginView::CookiePassword", "", time() -3600, "/" ))
+	// 	{
+	// 		return setcookie("LoginView::CookiePassword", "", time() -3600, "/" );
+	// 	}
+	// 	return "";
+	// }
 
 	public function getRegister()
 	{
@@ -180,16 +180,13 @@ class LoginView
 	{
 		return "Welcome back and you will be rembered";
 	}
-	public function Welcome()
-	{
-		return "Welcome";
-	}
-	public function EmptyMessage()
-	{
-		return "";
-	}
 	public function ByeBye()
 	{
 		return "Bye bye!";
 	}
+	public function Welcome()
+	{
+		return "Byesad bye!";
+	}
+
 }
