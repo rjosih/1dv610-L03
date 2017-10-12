@@ -25,15 +25,7 @@ class LoginController
             $CookiePasswordIsPassword = $this->view->CookiePasswordIsPassword();
             $PostUsernameIsAdmin = $this->view->PostUserNameIsAdmin();
             $PostPasswordIsPassword = $this->view->PostPasswordIsPassword();
-            // $SetCookieNameYesterday = $this->view->SetCookieNameYesterday();
-            // $SetCookiePasswordYesterday = $this->view->SetCookiePasswordYesterday();
-            
-            $Welcome = $this->view->Welcome();
-            $WelcomeBackWithCookie = $this->view->WelcomeBackWithCookie();
-            $WelcomeBackRemembered = $this->view->WelcomeBackRembered();
-            // $Empty = $this->view->EmptyMessage();
-            $ByeBye = $this->view->ByeBye();
-
+    
             $KeepMeLoggedInButton = $this->view->keepMeLoggedInButton(); 
             $LoginViewLogin = $this->view->LoginViewLogin();
             $LoginViewLogout = $this->view->LoginViewLogout();
@@ -42,12 +34,11 @@ class LoginController
 
             // kontollera uppgifterna mot model
             $SessionMessageEmpty = $this->model->sessionMessage();
-            $SessionUsername = $this->model->sessionUserName();
             $SessionUsernameEmpty = $this->model->sessionUserNameEmpty();
+            $SessionUsername = $this->model->sessionUserName();
             $SessionPassword = $this->model->sessionPassword();
             $SessionUsernameIsAdmin = $this->model->sessionUserNameIsAdmin();
             $SessionPasswordIsPassword = $this->model->sessionPasswordIsPassword();
-            $IsLoggedIn = $this->model->isLoggedIn();
             $Message = '';
             $Response = '';
  
@@ -63,36 +54,33 @@ class LoginController
                     }
                 }
             }
-        
+       
+            //om jag inte är inloggad
+            if(!$this->model->isLoggedIn())
+            {
+                if($LoginViewLogin)
+                {
+                    if ($this->model->validateInfo($PostUsername, $PostPassword) && $KeepMeLoggedInButton) 
+                    {
+                        $this->model->login();
+                        $this->model->WelcomeRemembered();
+                    }
+                    else if($this->model->validateInfo($PostUsername, $PostPassword))
+                    {
+                        $this->model->login();
+                        $this->model->Welcome();
+                    }
+                        $this->model->sessionMessage();
+                }
+            }
             if($LoginViewLogout)
             {   
                 if ($SessionUsername && $SessionUsernameIsAdmin) 
                 {
-                    // $_SESSION['message']  = $ByeBye;
-
                     $this->model->logout();
-                    // $SetCookieNameYesterday
-                    // $SetCookiePasswordYesterday
+                    $this->view->setCookiesYesterday();
                 }
                 $SessionUsernameEmpty;
-            }
-            else if($LoginViewLogin)
-            {
-                if ($this->model->validateInfo($PostUsername, $PostPassword) && $KeepMeLoggedInButton) 
-                {
-                    $this->model->login();
-                    $this->model->WelcomeRemembered();
-                }
-                else if($this->model->validateInfo($PostUsername, $PostPassword))
-                {
-                    $this->model->login();
-                    $this->model->Welcome();
-                    // $SessionMessage = $Welcome;
-                }
-                else
-                {
-                    $SessionMessageEmpty;
-                }
             }
         
             if ($PostPassword && $PostPasswordIsPassword  && $PostUsername && $PostUsernameIsAdmin)

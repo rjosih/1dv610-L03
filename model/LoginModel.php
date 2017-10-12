@@ -81,7 +81,7 @@ class LoginModel
   {
     $_SESSION['Username'] = 'Admin';
     $_SESSION['Password'] = 'Password';
-    $this->message = "Welcome";
+    $this->message = "Welcomeh";
   }
   public function Welcome()
   {
@@ -92,8 +92,6 @@ class LoginModel
   {
     unset($_SESSION['Username']);
     unset($_SESSION['Password']);
-    setcookie("LoginView::CookieName", "", time() -3600, "/" );
-    setcookie("LoginView::CookiePassword", "", time() -3600, "/");
     $this->message = "Bye bye!";
   }
 

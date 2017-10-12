@@ -119,23 +119,11 @@ class LoginView
 		return "";
 	}
 
-	// public function setCookieNameYesterday()
-	// {
-	// 	if(setcookie("LoginView::CookieName", "", time() -3600, "/" ))
-	// 	{
-	// 		return setcookie("LoginView::CookieName", "", time() -3600, "/" );
-	// 	}
-	// 	return "";
-	// }
-
-	// public function setCookiePasswordYesterday()
-	// {
-	// 	if(setcookie("LoginView::CookiePassword", "", time() -3600, "/" ))
-	// 	{
-	// 		return setcookie("LoginView::CookiePassword", "", time() -3600, "/" );
-	// 	}
-	// 	return "";
-	// }
+	public function setCookiesYesterday()
+	{
+		setcookie("LoginView::CookieName", "", time() -3600, "/" );
+		setcookie("LoginView::CookiePassword", "", time() -3600, "/" );
+	}
 
 	public function getRegister()
 	{
@@ -172,22 +160,7 @@ class LoginView
 		}
 		return "";
 	}
-	public function WelcomeBackWithCookie()
-	{
-		return "Welcome back with cookie";
-	}
-	public function WelcomeBackRembered()
-	{
-		return "Welcome back and you will be rembered";
-	}
-	public function ByeBye()
-	{
-		return "Bye bye!";
-	}
-	public function Welcome()
-	{
-		return "Welcome";
-	}
+	
 	public function PostPasswordIsPassword()
 	{
 		if(isset($_POST[self::$password]) == 'Password')
