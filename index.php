@@ -23,12 +23,8 @@ $registerView = new RegisterView();
 $LoginController = new LoginController();
 $Weekend = new Weekend();
 
-
 $isLoggedIn = false;
 
-// anropa kontroller
-// få en model tillbaka
-// skicka model till vyn
 $model = $LoginController->Login();
 
 if ($LayoutView->getRegisterView()) 

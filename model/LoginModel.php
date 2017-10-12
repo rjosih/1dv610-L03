@@ -77,14 +77,11 @@ class LoginModel
         return true;
     }
   }
+
   public function login()
   {
     $_SESSION['Username'] = 'Admin';
     $_SESSION['Password'] = 'Password';
-    $this->message = "Welcomeh";
-  }
-  public function Welcome()
-  {
     $this->message = "Welcome";
   }
 
@@ -113,7 +110,7 @@ class LoginModel
 
   public function WelcomeRemembered()
   {
-    $this->message = "Welcome back and you will be rembered";
+    $this->message = "Welcome and you will be remembered";
   }
 
 }

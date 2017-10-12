@@ -39,9 +39,8 @@ class LoginController
             $SessionPassword = $this->model->sessionPassword();
             $SessionUsernameIsAdmin = $this->model->sessionUserNameIsAdmin();
             $SessionPasswordIsPassword = $this->model->sessionPasswordIsPassword();
-            $Message = '';
-            $Response = '';
  
+            // using cookies
             if($LoginViewCookieName && $LoginViewCookiePassword)
             {
                 if(!$SessionUsername || $SessionUsernameEmpty)
@@ -55,7 +54,6 @@ class LoginController
                 }
             }
        
-            //om jag inte är inloggad
             if(!$this->model->isLoggedIn())
             {
                 if($LoginViewLogin)
@@ -68,9 +66,7 @@ class LoginController
                     else if($this->model->validateInfo($PostUsername, $PostPassword))
                     {
                         $this->model->login();
-                        $this->model->Welcome();
                     }
-                        $this->model->sessionMessage();
                 }
             }
             if($LoginViewLogout)
@@ -93,6 +89,10 @@ class LoginController
                     setcookie('LoginView::CookieName', $SessionUsername, time() + (86400 * 30), "/" );
                     setcookie('LoginView::CookiePassword', $SessionPassword, time() + (86400 * 30), "/" );
                 }
+            }
+            else if(!$SessionUsernameIsAdmin && !$SessionPasswordIsPassword)
+            {
+                $this->view->setCookiesYesterday();
             }
             
             return $this->model;

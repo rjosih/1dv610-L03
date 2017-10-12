@@ -169,6 +169,7 @@ class LoginView
 		}
 		return false;
 	}
+	
 	public function PostUsernameIsAdmin()
 	{
 		if(isset($_POST[self::$name]) == 'Admin')

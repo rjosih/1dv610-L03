@@ -13,7 +13,7 @@ class Weekend
 
         // difference between Fridag 5pm and now 
         $dayDifference = 5-$weekendDay;
-        $hoursDifference = 18 - $hours;
+        $hoursDifference = 16 - $hours;
         $minuteDifference = 60 - $minutes;
         $secondDifference = 60 -$seconds;
         
@@ -23,12 +23,12 @@ class Weekend
         }
         else
         {
-            echo "It is " 
+            echo "<h1>It is " 
             . $dayDifference  . " days, " 
             . $hoursDifference . " hours, " 
             . $minuteDifference . " minutes and " 
-            . $secondDifference . " seconds left to the weekend 
-            (Friday 5pm)";
+            . $secondDifference . " seconds 
+            left to the weekend (Friday 5pm)</h1>";
         }
         
     }
