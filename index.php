@@ -5,6 +5,7 @@ session_start();
 //INCLUDE THE FILES NEEDED...
 require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
+require_once('view/Weekend.php');
 require_once('view/LayoutView.php');
 require_once('view/RegisterView.php');
 require_once('model/LoginModel.php');
@@ -20,6 +21,7 @@ $DateTimeView = new DateTimeView();
 $LayoutView = new LayoutView();
 $registerView = new RegisterView();
 $LoginController = new LoginController();
+$Weekend = new Weekend();
 
 
 $isLoggedIn = false;
@@ -31,11 +33,11 @@ $model = $LoginController->Login();
 
 if ($LayoutView->getRegisterView()) 
 {
-    $LayoutView->render($model, $registerView, $DateTimeView);
+    $LayoutView->render($model, $registerView, $DateTimeView, $Weekend);
 }
 else
 {
-    $LayoutView->render($model, $LoginView, $DateTimeView);
+    $LayoutView->render($model, $LoginView, $DateTimeView, $Weekend);
 }
 
         
