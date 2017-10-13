@@ -14,7 +14,6 @@ class WeekendView
 
     public function submitButton($model)
     {
-        // var_dump($_POST);
         if ($model->isLoggedIn()) {
             return '
             <form method="post" name="form">

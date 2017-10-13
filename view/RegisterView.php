@@ -45,6 +45,7 @@ class RegisterView
     
     private function generateMessage($MessageInRegister)
     {
+        //register form
         return '
         <h2>Register a new user</h2>
         <form action="?register" method="post" name="form">
@@ -74,7 +75,6 @@ class RegisterView
     
     private function getRequestUserName() 
     {
-        //RETURN REQUEST VARIABLE: USERNAME
         if(isset($_POST[self::$UserName]))
         {       
             return $_POST[self::$UserName];

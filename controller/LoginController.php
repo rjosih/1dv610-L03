@@ -14,28 +14,10 @@ class LoginController
         
         public function Login() 
         {
-            // kontollera uppgifterna mot view
-            $PostPassword = $this->view->postPassword();
-            $PostUsername = $this->view->getRequestUserName();
-
-            $LoginViewCookieName = $this->view->LoginViewCookieName();
-            $LoginViewCookiePassword = $this->view->LoginViewCookiePassword();
-
-            $CookieNameIsAdmin = $this->view->CookieNameIsAdmin();
-            $CookiePasswordIsPassword = $this->view->CookiePasswordIsPassword();
-            $PostUsernameIsAdmin = $this->view->PostUserNameIsAdmin();
-            $PostPasswordIsPassword = $this->view->PostPasswordIsPassword();
-    
-            $KeepMeLoggedInButton = $this->view->keepMeLoggedInButton(); 
-            $LoginViewLogin = $this->view->LoginViewLogin();
-            $LoginViewLogout = $this->view->LoginViewLogout();
-            $LogOut = $this->view->logOut();
-            $GetRegister = $this->view->getRegister();
-
             $message = $this->model->getMessage();
             $this->view->setMessage($message);
 
-            // kontollera uppgifterna mot model
+            // validate info against model
             $SessionMessageEmpty = $this->model->sessionMessage();
             $SessionUsernameEmpty = $this->model->sessionUserNameEmpty();
             $SessionUsername = $this->model->sessionUserName();
@@ -44,11 +26,11 @@ class LoginController
             $SessionPasswordIsPassword = $this->model->sessionPasswordIsPassword();
             
             // using cookies
-            if($LoginViewCookieName && $LoginViewCookiePassword)
+            if($this->view->LoginViewCookieName() && $this->view->LoginViewCookiePassword())
             {
                 if(!$SessionUsername || $SessionUsernameEmpty)
                 {
-                    if($CookieNameIsAdmin && $CookiePasswordIsPassword)
+                    if($this->view->CookieNameIsAdmin() && $this->view->CookiePasswordIsPassword())
                     {
                         $SessionUsernameIsAdmin;
                         $SessionUsernameIsAdmin;
@@ -63,9 +45,9 @@ class LoginController
        
             if(!$this->model->isLoggedIn())
             {
-                if($LoginViewLogin)
+                if($this->view->LoginViewLogin())
                 {
-                    if ($this->model->validateInfo($PostUsername, $PostPassword) && $KeepMeLoggedInButton) 
+                    if ($this->model->validateInfo($this->view->getRequestUserName(), $this->view->postPassword()) && $this->view->keepMeLoggedInButton()) 
                     {
                         $this->model->login();
                         $this->model->WelcomeRemembered();
@@ -73,7 +55,7 @@ class LoginController
                         $message = $this->model->getMessage();
                         $this->view->setMessage($message);
                     }
-                    else if($this->model->validateInfo($PostUsername, $PostPassword))
+                    else if($this->model->validateInfo($this->view->getRequestUserName(), $this->view->postPassword()))
                     {
                         $this->model->login();
 
@@ -82,18 +64,18 @@ class LoginController
                     }
                 }
             }
-            if ($PostPassword && $PostPasswordIsPassword  && $PostUsername && $PostUsernameIsAdmin)
+            if ($this->view->postPassword() && $this->view->PostPasswordIsPassword()  && $this->view->getRequestUserName() && $this->view->PostUserNameIsAdmin())
             {
-                $SessionUsername = $PostUsername;
-                $SessionPassword = $PostPassword;
+                $SessionUsername = $this->view->getRequestUserName();
+                $SessionPassword = $this->view->postPassword();
                 
-                if($KeepMeLoggedInButton)
+                if($this->view->keepMeLoggedInButton())
                 {
                     setcookie('LoginView::CookieName', $SessionUsername, time() + (86400 * 30), "/" );
                     setcookie('LoginView::CookiePassword', $SessionPassword, time() + (86400 * 30), "/" );
                 }
             }
-            if($LoginViewLogout)
+            if($this->view->LoginViewLogout())
             {   
                 if ($SessionUsername && $SessionUsernameIsAdmin) 
                 {
