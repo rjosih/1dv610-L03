@@ -21,7 +21,8 @@ $DateTimeView = new DateTimeView();
 $LayoutView = new LayoutView();
 $registerView = new RegisterView();
 $LoginController = new LoginController();
-$Weekend = new Weekend();
+// $Weekend = new Weekend();
+
 
 $isLoggedIn = false;
 
@@ -29,9 +30,9 @@ $model = $LoginController->Login();
 
 if ($LayoutView->getRegisterView()) 
 {
-    $LayoutView->render($model, $registerView, $DateTimeView, $Weekend);
+    $LayoutView->render($model, $registerView, $DateTimeView);
 }
 else
 {
-    $LayoutView->render($model, $LoginView, $DateTimeView, $Weekend);
+    $LayoutView->render($model, $LoginView, $DateTimeView);
 }

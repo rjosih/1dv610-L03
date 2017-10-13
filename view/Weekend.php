@@ -23,12 +23,12 @@ class Weekend
         }
         else
         {
-            echo "<h1>It is " 
+            echo "<h3>It is " 
             . $dayDifference  . " days, " 
             . $hoursDifference . " hours, " 
             . $minuteDifference . " minutes and " 
             . $secondDifference . " seconds 
-            left to the weekend (Friday 5pm)</h1>";
+            left to the weekend (Friday 5pm)</h3>";
         }
         
     }

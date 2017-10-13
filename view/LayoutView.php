@@ -2,7 +2,7 @@
 
 class LayoutView 
 {
-  public function render(LoginModel $model, $view, DateTimeView $DateTimeView, Weekend $Weekend) 
+  public function render(LoginModel $model, $view, DateTimeView $DateTimeView) 
   {
     echo '<!DOCTYPE html>
       <html>
@@ -19,7 +19,6 @@ class LayoutView
               ' . $view->response($model) . '
               
               ' . $DateTimeView->show() . '
-              ' . $Weekend->getTime() . '
           </div>
          </body>
       </html>

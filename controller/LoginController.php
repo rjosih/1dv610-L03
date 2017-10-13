@@ -69,16 +69,6 @@ class LoginController
                     }
                 }
             }
-            if($LoginViewLogout)
-            {   
-                if ($SessionUsername && $SessionUsernameIsAdmin) 
-                {
-                    $this->model->logout();
-                    $this->view->setCookiesYesterday();
-                }
-                $SessionUsernameEmpty;
-            }
-        
             if ($PostPassword && $PostPasswordIsPassword  && $PostUsername && $PostUsernameIsAdmin)
             {
                 $SessionUsername = $PostUsername;
@@ -90,11 +80,16 @@ class LoginController
                     setcookie('LoginView::CookiePassword', $SessionPassword, time() + (86400 * 30), "/" );
                 }
             }
-            else if(!$SessionUsernameIsAdmin && !$SessionPasswordIsPassword)
-            {
-                $this->view->setCookiesYesterday();
+            if($LoginViewLogout)
+            {   
+                if ($SessionUsername && $SessionUsernameIsAdmin) 
+                {
+                    $this->view->setCookiesYesterday();
+                    $this->model->logout();
+                }
+                $SessionUsernameEmpty;
             }
-            
+        
             return $this->model;
             }
 }

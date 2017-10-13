@@ -56,11 +56,7 @@ class LoginView
 		';
 	}
 	
-	public function setCookiesYesterday()
-	{
-		setcookie("LoginView::CookieName", "", time() -3600, "/" );
-		setcookie("LoginView::CookiePassword", "", time() -3600, "/" );
-	}
+
 	public function getRequestUserName() 
 	{
 		if(isset($_POST[self::$name]))
@@ -177,6 +173,12 @@ class LoginView
 			return true;
 		}
 		return false;
+	}
+
+	public function setCookiesYesterday()
+	{
+		setcookie("LoginView::CookieName", "", time() -3600, "/" );
+		setcookie("LoginView::CookiePassword", "", time() -3600, "/" );
 	}
 
 }
