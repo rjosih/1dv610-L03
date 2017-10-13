@@ -32,6 +32,9 @@ class LoginController
             $LogOut = $this->view->logOut();
             $GetRegister = $this->view->getRegister();
 
+            $message = $this->model->getMessage();
+            $this->view->setMessage($message);
+
             // kontollera uppgifterna mot model
             $SessionMessageEmpty = $this->model->sessionMessage();
             $SessionUsernameEmpty = $this->model->sessionUserNameEmpty();
@@ -39,7 +42,7 @@ class LoginController
             $SessionPassword = $this->model->sessionPassword();
             $SessionUsernameIsAdmin = $this->model->sessionUserNameIsAdmin();
             $SessionPasswordIsPassword = $this->model->sessionPasswordIsPassword();
- 
+            
             // using cookies
             if($LoginViewCookieName && $LoginViewCookiePassword)
             {
@@ -50,6 +53,10 @@ class LoginController
                         $SessionUsernameIsAdmin;
                         $SessionUsernameIsAdmin;
                         $this->model->WelcomeBackCookie();
+                      
+                        $message = $this->model->getMessage();
+                        $this->view->setMessage($message);
+                        
                     }
                 }
             }
@@ -62,10 +69,16 @@ class LoginController
                     {
                         $this->model->login();
                         $this->model->WelcomeRemembered();
+
+                        $message = $this->model->getMessage();
+                        $this->view->setMessage($message);
                     }
                     else if($this->model->validateInfo($PostUsername, $PostPassword))
                     {
                         $this->model->login();
+
+                        $message = $this->model->getMessage();
+                        $this->view->setMessage($message);
                     }
                 }
             }
@@ -86,6 +99,9 @@ class LoginController
                 {
                     $this->view->setCookiesYesterday();
                     $this->model->logout();
+
+                    $message = $this->model->getMessage();
+                    $this->view->setMessage($message);
                 }
                 $SessionUsernameEmpty;
             }

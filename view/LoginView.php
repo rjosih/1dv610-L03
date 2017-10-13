@@ -10,11 +10,13 @@ class LoginView
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
+	private $message = "";
 
 	public function response(LoginModel $model)
 	{
 		if($model->isLoggedIn()) 
 		{
+			// $this->getTime();
 			return $this->generateLogoutButtonHTML($model->message);
 		}
 		else { 
@@ -56,7 +58,10 @@ class LoginView
 		';
 	}
 	
-
+	public function setMessage($message)
+	{
+		$this->message = $message;
+	}
 	public function getRequestUserName() 
 	{
 		if(isset($_POST[self::$name]))

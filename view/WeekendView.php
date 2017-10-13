@@ -1,9 +1,31 @@
 <?php
 
-class Weekend 
+class WeekendView 
 {
-    //TODO 
-    // implement gif it time allows
+    private static $submitbutton = 'Weekend::submitbutton';
+
+    public function clickButton()
+    {
+        if(isset($_POST[self::$submitbutton]))
+        {
+            return $this->getTime();
+        }
+    }
+
+    public function submitButton($model)
+    {
+        // var_dump($_POST);
+        if ($model->isLoggedIn()) {
+            return '
+            <form method="post" name="form">
+        
+            <input type="submit" size="20" id="' . self::$submitbutton . '" name="' . self::$submitbutton . '" value="Click here!"/>       
+           
+            </form>
+            ' . $this->clickButton();
+        }
+    }
+
     public function getTime()
     {
         $weekendDay = date('N');
@@ -19,18 +41,20 @@ class Weekend
         
         if($weekendDay == '5' && $hours > 17 || $weekendDay == '6' || $weekendDay == '7')
         {
-            echo "ENJOY WEEKEND";
+            return "ENJOY WEEKEND";
         }
         else
         {
-            echo "<h3>It is " 
+            return "<h3>It is " 
             . $dayDifference  . " days, " 
             . $hoursDifference . " hours, " 
             . $minuteDifference . " minutes and " 
             . $secondDifference . " seconds 
             left to the weekend (Friday 5pm)</h3>";
         }
-        
     }
+
+
+
 }
 

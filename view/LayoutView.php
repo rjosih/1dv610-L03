@@ -4,6 +4,9 @@ class LayoutView
 {
   public function render(LoginModel $model, $view, DateTimeView $DateTimeView) 
   {
+    
+    $WeekendView = new WeekendView();
+    
     echo '<!DOCTYPE html>
       <html>
         <head>
@@ -16,9 +19,9 @@ class LayoutView
           ' . $this->renderIsLoggedIn($model->isLoggedIn()) . '
           <br>
           <div class="container">
-              ' . $view->response($model) . '
-              
-              ' . $DateTimeView->show() . '
+              ' . $view->response($model) . 
+                 $WeekendView->submitButton($model)
+               . $DateTimeView->show() . '
           </div>
          </body>
       </html>

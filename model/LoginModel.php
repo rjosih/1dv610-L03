@@ -113,4 +113,9 @@ class LoginModel
     $this->message = "Welcome and you will be remembered";
   }
 
+  public function getMessage()
+  {
+    return $this->message;
+  }
+
 }
